@@ -1,4 +1,4 @@
 package com.example.demo.Controller;
 
-public class profesr {
+public class ProfServController {
 }
