@@ -1,8 +1,8 @@
 package com.example.demo.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.print.Doc;
+import java.util.Set;
 
 @Entity
 public class Professor {
@@ -10,16 +10,41 @@ public class Professor {
 
 
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column
         private int ProfId;
-    @Column
+    @Column(nullable=false)
         private String Name;
-    @Column
+    @Column(nullable=false)
         private String email;
-    @Column
+    @Column(nullable=false)
         private String password;
     @Column
         private String degree;
+
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "professor")
+    private Set<Document> doc;
+
+    public Set<Document> getDoc() {
+        return doc;
+    }
+
+    public void setDocuments(Set<Document> docs) {
+        this.doc = docs;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "professor")
+    private Set<Folder> fold;
+
+    public Set<Folder> getFold() {
+        return fold;
+    }
+
+    public void setFolders(Set<Folder> folds) {
+        this.fold = folds;
+    }
 
 
         public Professor(){}
