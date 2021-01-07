@@ -11,9 +11,7 @@ import java.util.List;
 public class ProfessorResponse implements Serializable {
     private Professor professor;
 
-    public
-
-    ProfessorResponse(Professor professor) {
+    public ProfessorResponse(Professor professor) {
         this.professor = professor;
     }
 
