@@ -19,7 +19,8 @@ public class Approvement {
     private Document document;
 */
 
-    @OneToOne(mappedBy = "approve")
+    @OneToOne(mappedBy = "approve" , fetch= FetchType.LAZY ,
+    cascade = CascadeType.ALL)
     private Document document;
 
     public Approvement(int approvementId, String approvedBy, boolean approveRefuse, Document document) {

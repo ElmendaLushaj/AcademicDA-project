@@ -63,7 +63,7 @@ public class Document {
 
 
 
-    @OneToOne
+    @OneToOne (fetch = FetchType.LAZY , optional = false)
     @JoinColumn(name= "ApprovementId")
     private Approvement approve;
 
