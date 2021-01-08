@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping( "/api/user")
 public class UserServController {
 
 
@@ -25,7 +25,7 @@ public class UserServController {
        return ResponseEntity.ok(proffesorList);
 
    }
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity login(@RequestBody LoginHelpers login){
         Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());
 
