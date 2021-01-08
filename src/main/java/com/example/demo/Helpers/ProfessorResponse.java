@@ -1,10 +1,5 @@
 package com.example.demo.Helpers;
-
-
-
 import com.example.demo.Model.Professor;
-
-
 import java.io.Serializable;
 import java.util.List;
 

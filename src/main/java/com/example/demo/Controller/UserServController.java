@@ -12,8 +12,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user")
 public class UserServController {
+
+
+
   @Autowired
     private IUserInterface userInterface;
+
+
    @GetMapping()
    public ResponseEntity getAllEmployees(){
        List<Professor> proffesorList=this.userInterface.getAllProfessors();
@@ -30,5 +35,5 @@ public class UserServController {
 
         return ResponseEntity.ok(professor);
     }
-
 }
+
