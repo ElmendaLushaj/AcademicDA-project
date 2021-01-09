@@ -50,8 +50,10 @@ public class Professor {
 
 
         public Professor(){}
-
-
+        public Professor(String Username , String password){
+        this.Username = Username;
+        this.password = password;
+        }
 
         public Professor(int profId, String name, String email, String password, String degree, String Username) {
             ProfId = profId;

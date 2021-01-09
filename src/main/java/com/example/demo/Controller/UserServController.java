@@ -19,13 +19,13 @@ public class UserServController {
     private IUserInterface userInterface;
 
 
-   @GetMapping()
+   @GetMapping
    public ResponseEntity getAllEmployees(){
        List<Professor> proffesorList=this.userInterface.getAllProfessors();
        return ResponseEntity.ok(proffesorList);
 
    }
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginHelpers login){
         Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());
 
