@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Helpers.LoginHelpers;
+import com.example.demo.Helpers.RegisterHelper;
 import com.example.demo.Model.Professor;
 import com.example.demo.Services.IUserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,11 @@ public class UserServController {
         }
 
         return ResponseEntity.ok(professor);
+    }
+    @PostMapping("/register")
+    public void register(@RequestBody RegisterHelper register ) {
+        userInterface.register(register.getName(), register.getEmail(), register.getPassword(), register.getDegree(), register.getUsername());
+
     }
 }
 

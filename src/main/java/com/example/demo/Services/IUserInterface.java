@@ -10,4 +10,6 @@ public interface IUserInterface {
 
     List<Professor> getAllProfessors();
     Professor login(String username, String pass);
+    void register(String name, String email , String password, String degree, String username);
+
 }
