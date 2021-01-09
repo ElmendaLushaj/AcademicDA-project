@@ -21,6 +21,8 @@ public class Professor {
         private String password;
     @Column
         private String degree;
+    @Column
+        private String Username;
 
 
 
@@ -48,17 +50,28 @@ public class Professor {
 
 
         public Professor(){}
+        public Professor(String Username , String password){
+        this.Username = Username;
+        this.password = password;
+        }
 
-
-
-        public Professor(int profId, String name, String email, String password, String degree) {
+        public Professor(int profId, String name, String email, String password, String degree, String Username) {
             ProfId = profId;
             Name = name;
             this.email = email;
             this.password = password;
             this.degree = degree;
+            this.Username = Username;
 
         }
+
+    public String getUsername() {
+        return Username;
+    }
+
+    public void setUsername(String username) {
+        Username = username;
+    }
 
     public int getProfId() {
         return ProfId;

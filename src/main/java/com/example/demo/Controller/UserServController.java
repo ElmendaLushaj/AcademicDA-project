@@ -10,11 +10,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping( "/api/user")
 public class UserServController {
+
+
+
   @Autowired
     private IUserInterface userInterface;
-   @GetMapping()
+
+
+   @GetMapping
    public ResponseEntity getAllEmployees(){
        List<Professor> proffesorList=this.userInterface.getAllProfessors();
        return ResponseEntity.ok(proffesorList);
@@ -30,5 +35,5 @@ public class UserServController {
 
         return ResponseEntity.ok(professor);
     }
-
 }
+
