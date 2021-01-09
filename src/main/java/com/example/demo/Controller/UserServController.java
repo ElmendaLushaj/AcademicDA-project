@@ -25,7 +25,7 @@ public class UserServController {
        return ResponseEntity.ok(proffesorList);
 
    }
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginHelpers login){
         Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());
 
