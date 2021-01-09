@@ -20,9 +20,9 @@ public class UserServController {
 
 
    @GetMapping
-   public ResponseEntity getAllEmployees(){
-       List<Professor> proffesorList=this.userInterface.getAllProfessors();
-       return ResponseEntity.ok(proffesorList);
+   public ResponseEntity getAllProfessors(){
+       List<Professor> professorList=this.userInterface.getAllProfessors();
+       return ResponseEntity.ok(professorList);
 
    }
     @PostMapping("/login")

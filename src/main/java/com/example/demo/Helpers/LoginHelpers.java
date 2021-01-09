@@ -3,7 +3,7 @@ package com.example.demo.Helpers;
 import java.io.Serializable;
 
 public class LoginHelpers implements Serializable {
-    private String username;
+   private String username;
     private String password;
 
     public LoginHelpers(String username, String password) {
