@@ -36,10 +36,16 @@ public class UserServController {
 
         return ResponseEntity.ok(professor);
     }
-    @PostMapping("/register")
+    /*
+   @PostMapping("/register",value="/save")
     public void register(@RequestBody RegisterHelper register ) {
         userInterface.register(register.getName(), register.getEmail(), register.getPassword(), register.getDegree(), register.getUsername());
 
+    }*/
+    @PostMapping("/registre")
+    public void register(@RequestBody RegisterHelper registerh){
+        Professor p = new Professor(registerh.getId(), registerh.getUsername(), registerh.getPassword(), registerh.getName(), registerh.getDegree(), registerh.getEmail());
+         userInterface.register(p);
     }
 }
 

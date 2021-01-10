@@ -29,11 +29,15 @@ public class UserService implements IUserInterface {
         }
         return profOptional.get();
     }
-   @Override
+  /* @Override
     public void register(String name, String email , String password, String degree, String username){
-       Optional registerProf = this.professorDao.registreProfessor(name,email,password, degree,username);
+       Optional registerProf = this.professorDao.registerProfessor(name,email,password, degree,username);
 
-     }
+     }*/
+
+    public void register(Professor p){
+        professorDao.save(p);
+    }
    }
 
 

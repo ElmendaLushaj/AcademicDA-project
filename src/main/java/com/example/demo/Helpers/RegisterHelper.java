@@ -3,18 +3,28 @@ package com.example.demo.Helpers;
 import java.io.Serializable;
 
 public class RegisterHelper implements Serializable {
+    private int id;
     private String name;
     private String email;
     private String degree;
     private String username;
     private String password;
 
-    public RegisterHelper(String name, String email, String degree, String username, String password) {
-       this.name=name;
+    public RegisterHelper(int id,String name, String email, String degree, String username, String password) {
+       this.id = id;
+        this.name=name;
        this.email=email;
        this.degree = degree;
        this.username = username;
        this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
