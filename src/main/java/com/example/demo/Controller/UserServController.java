@@ -44,7 +44,7 @@ public class UserServController {
     }*/
     @PostMapping("/registre")
     public void register(@RequestBody RegisterHelper registerh){
-        Professor p = new Professor(registerh.getId(), registerh.getUsername(), registerh.getPassword(), registerh.getName(), registerh.getDegree(), registerh.getEmail());
+        Professor p = new Professor(registerh.getName(),registerh.getDegree(),registerh.getEmail(),registerh.getPassword(), registerh.getUsername());
          userInterface.register(p);
     }
 }

@@ -3,15 +3,15 @@ package com.example.demo.Helpers;
 import java.io.Serializable;
 
 public class RegisterHelper implements Serializable {
-    private int id;
+
     private String name;
     private String email;
     private String degree;
     private String username;
     private String password;
 
-    public RegisterHelper(int id,String name, String email, String degree, String username, String password) {
-       this.id = id;
+    public RegisterHelper(String name, String degree, String email, String password, String username) {
+
         this.name=name;
        this.email=email;
        this.degree = degree;
@@ -19,13 +19,7 @@ public class RegisterHelper implements Serializable {
        this.password = password;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
