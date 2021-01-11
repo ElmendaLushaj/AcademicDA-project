@@ -28,6 +28,11 @@ public class Folder {
     }
     public Folder(){}
 
+    public Folder(String name, Professor professor) {
+        this.name = name;
+        this.professor = professor;
+
+}
     public int getFolderID() {
         return folderID;
     }
