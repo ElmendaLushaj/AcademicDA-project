@@ -47,5 +47,8 @@ public class UserServController {
         Professor p = new Professor(registerh.getName(),registerh.getDegree(),registerh.getEmail(),registerh.getPassword(), registerh.getUsername());
          userInterface.register(p);
     }
+
+
+
 }
 

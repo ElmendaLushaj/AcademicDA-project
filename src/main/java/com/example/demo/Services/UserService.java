@@ -1,6 +1,8 @@
 package com.example.demo.Services;
 
+import com.example.demo.DAL.DocumentDAO;
 import com.example.demo.DAL.ProfessorDAO;
+import com.example.demo.Model.Document;
 import com.example.demo.Model.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ public class UserService implements IUserInterface {
 
   @Autowired
     private ProfessorDAO professorDao;
+    private DocumentDAO documentDao;
 
     @Override
     public List<Professor> getAllProfessors() {
@@ -38,7 +41,15 @@ public class UserService implements IUserInterface {
     public void register(Professor p){
         professorDao.save(p);
     }
-   }
+    @Override
+    public List<Document>listAll(String keyword){
+        if(keyword !=null){
+            return documentDao.search(keyword);
+        }
+        return documentDao.findAll();
+    }
+
+}
 
 
 
