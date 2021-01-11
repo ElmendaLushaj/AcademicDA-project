@@ -1,9 +1,7 @@
 package com.example.demo.Controller;
 
-import com.example.demo.DAL.SearchHelper;
 import com.example.demo.Helpers.LoginHelpers;
 import com.example.demo.Helpers.RegisterHelper;
-import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
 import com.example.demo.Services.IUserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +26,6 @@ public class UserServController {
        return ResponseEntity.ok(professorList);
 
    }
-
-    @GetMapping("/searchFold")
-    public ResponseEntity searchFolders(@RequestBody SearchHelper sh){
-        List<Folder> folderListList=this.userInterface.getAllFoldersByName(sh.getName());
-        return ResponseEntity.ok(folderListList);
-
-    }
-
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginHelpers login){
         Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());

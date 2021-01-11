@@ -1,8 +1,6 @@
 package com.example.demo.Services;
 
-import com.example.demo.DAL.FolderDao;
 import com.example.demo.DAL.ProfessorDAO;
-import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,16 +13,10 @@ public class UserService implements IUserInterface {
 
   @Autowired
     private ProfessorDAO professorDao;
-    private FolderDao   folderDao;
 
     @Override
     public List<Professor> getAllProfessors() {
         return this.professorDao.findAll();
-    }
-    @Override
-    public List<Folder>getAllFoldersByName(String name){
-        List<Folder> f = this.folderDao.findFoldersByName(name);
-        return f;
     }
 
     @Override
