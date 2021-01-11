@@ -54,6 +54,14 @@ public class Professor {
         this.Username = Username;
         this.password = password;
         }
+        //String name, String degree, String email, String password, String username
+        public Professor(String name, String degree, String email,String password, String Username){
+            Name = name;
+            this.email = email;
+            this.password = password;
+            this.degree = degree;
+            this.Username = Username;
+        }
 
         public Professor(int profId, String name, String email, String password, String degree, String Username) {
             ProfId = profId;

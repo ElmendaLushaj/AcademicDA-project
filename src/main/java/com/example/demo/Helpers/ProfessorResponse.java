@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ProfessorResponse implements Serializable {
-    private Professor professor;
+  /*  private Professor professor;
 
     public ProfessorResponse(Professor professor) {
         this.professor = professor;
     }
-
+*/
 
 }

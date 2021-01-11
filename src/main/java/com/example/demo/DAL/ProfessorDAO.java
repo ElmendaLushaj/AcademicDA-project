@@ -10,4 +10,10 @@ import java.util.Optional;
 public interface ProfessorDAO extends JpaRepository<Professor , Integer> {
     @Query("select p from Professor p where p.Username=?1 and p.password=?2")
     Optional<Professor> findProfessorByUsernameAndPassword(String username, String pass);
+
+  /*  @Query("INSERT INTO Professor (Name,email,password,degree,Username)VALUES(?1,?2,?3,?4,?5,?6) ")
+    Optional registerProfessor(String Name,String Email,String Password, String degree,String Username);
+*/
 }
+
+
