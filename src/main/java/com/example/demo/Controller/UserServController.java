@@ -2,9 +2,11 @@ package com.example.demo.Controller;
 
 import com.example.demo.Helpers.LoginHelpers;
 import com.example.demo.Helpers.RegisterHelper;
+import com.example.demo.Model.Document;
 import com.example.demo.Model.Professor;
 import com.example.demo.Services.IUserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,5 +49,13 @@ public class UserServController {
         Professor p = new Professor(registerh.getName(),registerh.getDegree(),registerh.getEmail(),registerh.getPassword(), registerh.getUsername());
          userInterface.register(p);
     }
+
+    @RequestMapping(value = "/searchDoc")
+    public void search(Document doc, @Param("keyword") String keyword){
+        List<Document>documentList=userInterface.listAll(keyword);
+        doc.addAtribute("documentList",documentList);
+
+    }
+
 }
 

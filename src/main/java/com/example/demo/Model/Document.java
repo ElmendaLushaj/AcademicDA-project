@@ -4,6 +4,7 @@ import org.springframework.lang.NonNull;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -152,5 +153,8 @@ public class Document {
 
     public void setProfessor(Professor professor) {
         this.professor = professor;
+    }
+
+    public void addAtribute(String documentList, List<Document> documentList1) {
     }
 }
