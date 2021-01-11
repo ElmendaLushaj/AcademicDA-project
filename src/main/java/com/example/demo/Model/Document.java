@@ -82,6 +82,18 @@ public class Document {
     }
     public Document(){}
 
+
+    public Document(Date creationD,String docPath, Date editD, double fileSize,String name,  String type, int prof ) {
+        this.name = name;
+        this.fileSize = fileSize;
+        this.type = type;
+        this.creationD = creationD;
+        this.editD = editD;
+        this.docPath = docPath;
+        this.professor = getProfessor();
+
+    }
+
     public int getDocId() {
         return DocId;
     }
