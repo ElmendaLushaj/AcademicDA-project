@@ -6,8 +6,10 @@ public class searchHelper implements Serializable {
     private String name;
 
     public searchHelper(String name){
+
         this.name=name;
     }
+    public searchHelper(){}
 
     public String getName() {
         return name;

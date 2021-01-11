@@ -1,10 +1,13 @@
 package com.example.demo.Services;
 
 import com.example.demo.DAL.DocumentDAO;
+import com.example.demo.DAL.FolderDao;
 import com.example.demo.DAL.ProfessorDAO;
 import com.example.demo.Model.Document;
+import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +19,7 @@ public class UserService implements IUserInterface {
   @Autowired
     private ProfessorDAO professorDao;
     private DocumentDAO documentDao;
+    private FolderDao folderDao;
 
     @Override
     public List<Professor> getAllProfessors() {
@@ -48,7 +52,13 @@ public class UserService implements IUserInterface {
         }
         return documentDao.findAll();
     }
-
+    @Override
+    public List<Folder> listAllFolder(String name){
+        if(name !=null){
+            return folderDao.findFoldersByName(name);
+        }
+        return folderDao.findAll();
+    }
 }
 
 
