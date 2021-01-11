@@ -6,8 +6,8 @@ import java.io.Serializable;
 
 public class FolderHelper implements Serializable {
     private String name;
-    private Professor professor;
-    public FolderHelper(String name,Professor p){
+    private int professor;
+    public FolderHelper(String name,int p){
 
         this.name=name;
         this.professor=professor;
@@ -17,15 +17,18 @@ public class FolderHelper implements Serializable {
         return name;
     }
 
-    public Professor getProfessor() {
+    public int getProfessorID() {
+
         return professor;
     }
 
     public void setName(String name) {
+
         this.name = name;
     }
 
-    public void setProfessor(Professor professor) {
+    public void setProfessor(int professor) {
+
         this.professor = professor;
     }
 }

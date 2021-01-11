@@ -27,7 +27,10 @@ public class Folder {
         this.professor = professor;
     }
     public Folder(){}
-
+  public Folder(String name , int nr){
+        this.name = name;
+        this.professor= getProfessor();
+  }
     public Folder(String name, Professor professor) {
         this.name = name;
         this.professor = professor;
