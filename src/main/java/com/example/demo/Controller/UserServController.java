@@ -2,6 +2,9 @@ package com.example.demo.Controller;
 
 import com.example.demo.Helpers.LoginHelpers;
 import com.example.demo.Helpers.RegisterHelper;
+import com.example.demo.Helpers.searchHelper;
+import com.example.demo.Model.Document;
+import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
 import com.example.demo.Services.IUserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,5 +50,17 @@ public class UserServController {
         Professor p = new Professor(registerh.getName(),registerh.getDegree(),registerh.getEmail(),registerh.getPassword(), registerh.getUsername());
          userInterface.register(p);
     }
+
+     @GetMapping("/searchFolder")
+    public ResponseEntity listAllFolder(@RequestBody searchHelper sh){
+        List<Folder> folders = this.userInterface.listAllFolder(sh.getName());
+        return ResponseEntity.ok(folders);
+     }
+    @GetMapping("/searchDocument")
+    public ResponseEntity listAllDocuments(@RequestBody searchHelper sh){
+        List<Document> documents = this.userInterface.listAll(sh.getName());
+        return ResponseEntity.ok(documents);
+    }
+
 }
 
