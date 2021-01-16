@@ -1,5 +1,7 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.print.Doc;
 import java.util.Set;
@@ -28,22 +30,22 @@ public class Professor {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "professor")
     private Set<Document> doc;
-
+    @JsonIgnore
     public Set<Document> getDoc() {
         return doc;
     }
-
+    @JsonIgnore
     public void setDocuments(Set<Document> docs) {
         this.doc = docs;
     }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "professor")
     private Set<Folder> fold;
-
+    @JsonIgnore
     public Set<Folder> getFold() {
         return fold;
     }
-
+    @JsonIgnore
     public void setFolders(Set<Folder> folds) {
         this.fold = folds;
     }

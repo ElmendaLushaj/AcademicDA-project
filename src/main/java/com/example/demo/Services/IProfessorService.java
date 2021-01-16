@@ -14,6 +14,9 @@ public interface IProfessorService {
     Optional<Folder> getFoldById(int folId);
     Optional<Comment> getCommById(int commId);
     Optional <Approvement> getAppById(int appId);
+    Optional<Folder> getFoldByUser(int profId);
     void deleteDoc(int docId);
     void deleteFold(int foldId);
+
+
 }

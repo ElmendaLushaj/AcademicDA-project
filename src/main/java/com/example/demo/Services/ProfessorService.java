@@ -57,6 +57,7 @@ public class ProfessorService implements IProfessorService{
         return f;
 
     }
+
     @Override
     public Optional<Comment> getCommById(int comId){
         Optional<Comment> c= commDao.findById(comId);
@@ -68,6 +69,12 @@ public class ProfessorService implements IProfessorService{
     public Optional<Approvement> getAppById(int appId){
         Optional<Approvement> a= appDao.findById(appId);
         return a;
+
+    }
+    @Override
+    public Optional<Folder> getFoldByUser(int profId){
+        Optional<Folder> f= folDao.getFolderByUser(profId);
+        return f;
 
     }
     @Override
