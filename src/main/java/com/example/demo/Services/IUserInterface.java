@@ -14,6 +14,7 @@ public interface IUserInterface {
     Professor login(String username, String pass);
     void register(Professor p);
     List <Folder> listAllFolder(String name);
+    Professor getByUsername(String username);
    /*void register(String name, String email , String password, String degree, String username);
 */
     List<Document> listAll(String keyword);

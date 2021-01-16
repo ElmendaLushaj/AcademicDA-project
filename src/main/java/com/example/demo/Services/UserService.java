@@ -36,6 +36,15 @@ public class UserService implements IUserInterface {
         }
         return profOptional.get();
     }
+    @Override
+    public Professor getByUsername(String username){
+        Optional<Professor> profUsername = this.professorDao.findProfessorByUsername(username);
+        if(profUsername == null){
+            return null;
+        }
+        return profUsername.get();
+
+    }
   /* @Override
     public void register(String name, String email , String password, String degree, String username){
        Optional registerProf = this.professorDao.registerProfessor(name,email,password, degree,username);

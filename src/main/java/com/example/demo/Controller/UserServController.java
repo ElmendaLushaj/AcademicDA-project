@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Helpers.LoginHelpers;
 import com.example.demo.Helpers.RegisterHelper;
+import com.example.demo.Helpers.getModelHelper2;
 import com.example.demo.Helpers.searchHelper;
 import com.example.demo.Model.Document;
 import com.example.demo.Model.Folder;
@@ -23,7 +24,7 @@ public class UserServController {
     private IUserInterface userInterface;
 
 
-   @GetMapping
+   @GetMapping("/getALLProf")
    public ResponseEntity getAllProfessors(){
        List<Professor> professorList=this.userInterface.getAllProfessors();
        return ResponseEntity.ok(professorList);
@@ -39,6 +40,7 @@ public class UserServController {
 
         return ResponseEntity.ok(professor);
     }
+
     /*
    @PostMapping("/register",value="/save")
     public void register(@RequestBody RegisterHelper register ) {
