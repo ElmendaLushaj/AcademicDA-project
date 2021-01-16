@@ -72,6 +72,12 @@ public class ProfessorService implements IProfessorService{
 
     }
     @Override
+    public Optional<Folder> getFoldByUser(int profId){
+        Optional<Folder> f= folDao.getFolderByUser(profId);
+        return f;
+
+    }
+    @Override
     public void deleteDoc(int id){
         docDao.deleteById(id);
     }
