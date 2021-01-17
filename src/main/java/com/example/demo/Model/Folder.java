@@ -16,12 +16,15 @@ public class Folder {
     @Column(nullable=false)
     private String name;
 
-    @ManyToMany(mappedBy = "folders")
+    /*@ManyToMany(mappedBy = "folders")
     private Set<Document> documents = new HashSet<>();
-
+*/
     @ManyToOne
     @JoinColumn(name="professorId")
     private Professor professor;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "folder")
+    private Set<Document> doc;
 
 
     public Folder( int folderID, String name, Professor professor) {
@@ -60,4 +63,9 @@ public class Folder {
     public void setProfessor(Professor professor) {
         this.professor = professor;
     }
+
+    //prvvvv
+
+
+
 }

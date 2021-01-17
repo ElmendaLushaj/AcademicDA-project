@@ -27,18 +27,31 @@ public class Document {
     @Column(nullable=false)
     private String docPath;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    /*@ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Doc_Fold",
             joinColumns = { @JoinColumn(name = "DocId")},
             inverseJoinColumns = {@JoinColumn(name = "folderID")}
     )
     Set<Folder>folders = new HashSet<>();
-
+     */
     @ManyToOne
     @JoinColumn(name="professorId")
     private Professor professor;
 
+    @ManyToOne
+    @JoinColumn(name="foldeId")
+    private Folder folder;
+
+    public Document(String name, double fileSize, String type, Date creationD, Date editD, String docPath) {
+        this.name = name;
+        this.fileSize = fileSize;
+        this.type = type;
+        this.creationD = creationD;
+        this.editD = editD;
+        this.docPath = docPath;
+
+    }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "document")
     private Set<Comment>  com;
