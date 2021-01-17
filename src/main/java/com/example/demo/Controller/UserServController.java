@@ -63,6 +63,16 @@ public class UserServController {
         List<Document> documents = this.userInterface.listAll(sh.getName());
         return ResponseEntity.ok(documents);
     }
+    @GetMapping("/profByUserName")
+    public ResponseEntity profByName(@RequestBody getModelHelper2 gtm){
+        Professor professor=this.userInterface.getByUsername(gtm.getUsername());
+
+        if(professor==null){
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(professor);
+    }
 
 }
 

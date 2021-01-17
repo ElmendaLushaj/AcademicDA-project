@@ -83,4 +83,11 @@ public class ProfServController {
         return ResponseEntity.ok(a);
 
     }
+    @GetMapping("/getFoldByUser")
+    public ResponseEntity getFoldByUser(@RequestBody getModelHelper gtm){
+
+        Optional<Folder> f =this.profServ.getFoldByUser(gtm.getModelId());
+        return ResponseEntity.ok(f);
+
+    }
 }
