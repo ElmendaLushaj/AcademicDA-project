@@ -42,7 +42,7 @@ public class ProfServController {
 
 
 
-    @PostMapping("/addFolder")
+    @PostMapping("/addFolder3")
     public  void addFolder2(@RequestBody FolderHelper folderh){
        Optional<Professor> pr=this.userInterface.getProfById(folderh.getProfessorID());
         Professor p = pr.get();
