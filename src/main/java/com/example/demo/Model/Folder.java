@@ -18,7 +18,7 @@ public class Folder {
 
     /*@ManyToMany(mappedBy = "folders")
     private Set<Document> documents = new HashSet<>();
-*/
+     */
     @ManyToOne
     @JoinColumn(name="professorId")
     private Professor professor;

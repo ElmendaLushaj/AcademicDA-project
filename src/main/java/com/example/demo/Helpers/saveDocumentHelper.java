@@ -12,16 +12,18 @@ public class saveDocumentHelper implements Serializable {
     private double fileSize;
     private String name;
     private String type;
-    private int profID;
+    private int profId;
+    private int foldId;
 
-    public saveDocumentHelper(Date creationD, String docPath, Date editedD, double fileSize, String name, String type, int profID) {
+    public saveDocumentHelper(Date creationD, String docPath, Date editedD, double fileSize, String name, String type, int profId, int foldId) {
         this.creationD = creationD;
         this.docPath = docPath;
         this.editedD = editedD;
         this.fileSize = fileSize;
         this.name = name;
         this.type = type;
-        this.profID = profID;
+        this.profId = profId;
+        this.foldId = foldId;
     }
 
     public Date getCreationD() {
@@ -73,11 +75,18 @@ public class saveDocumentHelper implements Serializable {
     }
 
     public int getProfID() {
-        return profID;
+        return profId;
     }
 
     public void setProfID(int profID) {
-        this.profID = profID;
+        this.profId = profId;
     }
 
+    public int getFoldId() {
+        return foldId;
+    }
+
+    public void setFoldId(int foldId) {
+        this.foldId = foldId;
+    }
 }

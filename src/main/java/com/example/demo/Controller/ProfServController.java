@@ -30,9 +30,13 @@ public class ProfServController {
     }
     @PostMapping("/addDoc")
     public void addDoc(@RequestBody saveDocumentHelper sdH){
+        Optional<Professor> pr=this.userInterface.getProfById(sdH.getProfID());
+        Professor p = pr.get();
+        Optional<Folder> fl = this.profServ.getFoldById(sdH.getFoldId());
+        Folder f = fl.get();
 
 
-        Document d = new Document(sdH.getCreationD() , sdH.getDocPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType(),sdH.getProfID());
+        Document d = new Document(sdH.getCreationD() , sdH.getDocPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType(),p ,f);
         profServ.addDocument(d);
     }
     @PostMapping("/deleteDoc")
