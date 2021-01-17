@@ -7,7 +7,6 @@ import com.example.demo.Model.Document;
 import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +17,9 @@ public class UserService implements IUserInterface {
 
   @Autowired
     private ProfessorDAO professorDao;
+    @Autowired
     private DocumentDAO documentDao;
+    @Autowired
     private FolderDao folderDao;
 
     @Override
@@ -67,6 +68,16 @@ public class UserService implements IUserInterface {
             return folderDao.findFoldersByName(name);
         }
         return folderDao.findAll();
+    }
+
+    @Override
+    public Optional<Professor> getProfById(int folId){
+        Optional<Professor> p= professorDao.findById(folId);
+
+            return p;
+
+
+
     }
 }
 

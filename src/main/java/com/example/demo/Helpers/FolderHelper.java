@@ -5,6 +5,7 @@ import com.example.demo.Model.Professor;
 import java.io.Serializable;
 
 public class FolderHelper implements Serializable {
+
     private String name;
     private int professor;
     public FolderHelper(String name,int p){
@@ -16,6 +17,8 @@ public class FolderHelper implements Serializable {
     public String getName() {
         return name;
     }
+
+
 
     public int getProfessorID() {
 

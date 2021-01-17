@@ -1,7 +1,6 @@
 package com.example.demo.Controller;
 
 import com.example.demo.Helpers.FolderHelper;
-import com.example.demo.Helpers.RegisterHelper;
 import com.example.demo.Helpers.getModelHelper;
 import com.example.demo.Helpers.saveDocumentHelper;
 import com.example.demo.Model.*;
@@ -20,6 +19,8 @@ import java.util.Optional;
 public class ProfServController {
     @Autowired
     private IProfessorService profServ;
+    @Autowired
+    private IUserInterface userInterface;
 
     @GetMapping
     public ResponseEntity getAllDocuments(){
@@ -39,11 +40,19 @@ public class ProfServController {
          profServ.deleteDoc(gtm.getModelId());
     }
 
+
+
     @PostMapping("/addFolder")
-    public  void addFolder(@RequestBody FolderHelper folderh){
-        Folder f=new Folder( folderh.getName(),folderh.getProfessorID());
+    public  void addFolder2(@RequestBody FolderHelper folderh){
+       Optional<Professor> pr=this.userInterface.getProfById(folderh.getProfessorID());
+        Professor p = pr.get();
+
+        Folder f=new Folder(folderh.getName(),p);
         profServ.addFolder(f);
+
     }
+
+
 
     @PostMapping("/deleteFold")
     public void deleteFold(@RequestBody getModelHelper gtm){

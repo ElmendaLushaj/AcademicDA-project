@@ -18,9 +18,13 @@ import java.util.Optional;
 public class ProfessorService implements IProfessorService{
     @Autowired
     private DocumentDAO docDao;
+    @Autowired
     private FolderDao folDao;
+    @Autowired
     private CommentDAO commDao;
+    @Autowired
     private ApprovementDAO appDao;
+
     private Document doc;
     @Override
     public List<Document> getAllDocuments() {

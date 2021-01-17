@@ -1,7 +1,10 @@
 package com.example.demo.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -21,23 +24,23 @@ public class Folder {
     private Professor professor;
 
 
-    public Folder(int folderID, String name, Professor professor) {
+    public Folder( int folderID, String name, Professor professor) {
         this.folderID = folderID;
+        this.name = name;
+        this.professor = professor;
+    }
+    public Folder(String name, Professor professor){
         this.name = name;
         this.professor = professor;
     }
     public Folder(){}
 
-  public Folder(String name , int nr){
-        this.name = name;
-        this.professor = getProfessor();
-
-  }
-    public Folder(String name, Professor professor) {
+  /*public Folder(String name , Professor professor){
         this.name = name;
         this.professor = professor;
 
-}
+  }*/
+
     public int getFolderID() {
         return folderID;
     }
@@ -45,7 +48,7 @@ public class Folder {
     public String getName() {
         return name;
     }
-
+    @JsonIgnore
     public Professor getProfessor() {
         return professor;
     }
@@ -53,7 +56,7 @@ public class Folder {
     public void setName(String name) {
         this.name = name;
     }
-
+    @JsonIgnore
     public void setProfessor(Professor professor) {
         this.professor = professor;
     }
