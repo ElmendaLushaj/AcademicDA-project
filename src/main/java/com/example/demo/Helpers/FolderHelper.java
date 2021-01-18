@@ -8,7 +8,7 @@ public class FolderHelper implements Serializable {
 
     private String name;
     private int professor;
-    public FolderHelper(String name,int p){
+    public FolderHelper(String name,int professor){
 
         this.name=name;
         this.professor=professor;

@@ -29,17 +29,8 @@ public class ProfServController {
         return ResponseEntity.ok(documentList);
 
     }
-    @PostMapping("/addDoc")
-    public void addDoc(@RequestBody saveDocumentHelper sdH){
-        Optional<Professor> pr=this.userInterface.getProfById(sdH.getProfID());
-        Professor p = pr.get();
-        Optional<Folder> fl = this.profServ.getFoldById(sdH.getFoldId());
-        Folder f = fl.get();
 
 
-        Document d = new Document(sdH.getCreationD() , sdH.getDocPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType(),p ,f);
-        profServ.addDocument(d);
-    }
     @PostMapping("/deleteDoc")
     public void deleteDoc(@RequestBody getModelHelper gtm){
          profServ.deleteDoc(gtm.getModelId());
@@ -57,6 +48,18 @@ public class ProfServController {
 
     }
 
+    @PostMapping("/addDoc")
+    public void addDoc(@RequestBody saveDocumentHelper sdH){
+        Optional<Folder> fl = this.profServ.getFoldById(sdH.getFoldId());
+        Folder f = fl.get();
+        Optional<Professor> pr=this.userInterface.getProfById(sdH.getProfID());
+        Professor p = pr.get();
+
+
+
+        Document d = new Document(sdH.getCreationD() , sdH.getDocPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType() ,p , f);
+        profServ.addDocument(d);
+    }
 
 
     @PostMapping("/deleteFold")
