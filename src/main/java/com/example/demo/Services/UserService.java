@@ -38,12 +38,12 @@ public class UserService implements IUserInterface {
         return profOptional.get();
     }
     @Override
-    public Professor getByUsername(String username){
+    public Optional <Professor> getByUsername(String username){
         Optional<Professor> profUsername = this.professorDao.findProfessorByUsername(username);
         if(profUsername == null){
             return null;
         }
-        return profUsername.get();
+        return profUsername;
 
     }
   /* @Override

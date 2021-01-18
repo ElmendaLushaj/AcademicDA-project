@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import com.example.demo.Helpers.FolderHelper;
 import com.example.demo.Helpers.getModelHelper;
+import com.example.demo.Helpers.getModelHelper2;
 import com.example.demo.Helpers.saveDocumentHelper;
 import com.example.demo.Model.*;
 import com.example.demo.Services.IProfessorService;
@@ -97,9 +98,11 @@ public class ProfServController {
 
     }
     @GetMapping("/getFoldByUser")
-    public ResponseEntity getFoldByUser(@RequestBody getModelHelper gtm){
-
-        Optional<Folder> f =this.profServ.getFoldByUser(gtm.getModelId());
+    public ResponseEntity getFoldByUser(@RequestBody getModelHelper2 gtm2){
+        Optional<Professor> profOp = this.userInterface.getByUsername(gtm2.getUsername());
+        Professor p = profOp.get();
+        int profId =p.getProfId();
+        Optional<Folder> f =this.profServ.getFoldByUser(profId);
         return ResponseEntity.ok(f);
 
     }
