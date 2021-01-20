@@ -15,5 +15,5 @@ public interface FolderDao extends JpaRepository<Folder, Integer> {
     List<Folder> findFoldersByName(String name);
 
     @Query("select f from Folder f where f.professor=?1")
-    Optional<Folder> getFolderByUser(int profId);
+    List<Folder> getFolderByUser(Professor professor);
 }

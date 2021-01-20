@@ -19,17 +19,18 @@ public class Folder {
     /*@ManyToMany(mappedBy = "folders")
     private Set<Document> documents = new HashSet<>();
      */
+
     @ManyToOne
     @JoinColumn(name="professorId")
     private Professor professor;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "folder")
     private Set<Document> doc;
-
+    @JsonIgnore
     public Set<Document> getDoc() {
         return doc;
     }
-
+    @JsonIgnore
     public void setDocument(Set<Document> docs) {
         this.doc = docs;
     }

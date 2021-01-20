@@ -4,10 +4,7 @@ import com.example.demo.DAL.ApprovementDAO;
 import com.example.demo.DAL.CommentDAO;
 import com.example.demo.DAL.DocumentDAO;
 import com.example.demo.DAL.FolderDao;
-import com.example.demo.Model.Approvement;
-import com.example.demo.Model.Comment;
-import com.example.demo.Model.Document;
-import com.example.demo.Model.Folder;
+import com.example.demo.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,8 +73,8 @@ public class ProfessorService implements IProfessorService{
 
     }
     @Override
-    public Optional<Folder> getFoldByUser(int profId){
-        Optional<Folder> f= folDao.getFolderByUser(profId);
+    public List<Folder> getFoldByUser(Professor profId){
+        List<Folder> f= folDao.getFolderByUser(profId);
         return f;
 
     }

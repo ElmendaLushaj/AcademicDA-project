@@ -61,6 +61,15 @@ public class ProfServController {
         Document d = new Document(sdH.getCreationD() , sdH.getPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType(), p , f);
         profServ.addDocument(d);
     }
+    @GetMapping("/getFoldByUser/{username}")
+    public ResponseEntity getFoldByUser(@PathVariable String username){
+        Optional<Professor> profOp = this.userInterface.getByUsername(username);
+        Professor p = profOp.get();
+      //  int profId =p.getProfId();
+        List<Folder> f =this.profServ.getFoldByUser(p);
+        return ResponseEntity.ok(f);
+
+    }
 
     public Approvement getAById(int id){
         Optional<Approvement>a  =profServ.getAppById(id);
@@ -124,15 +133,7 @@ public class ProfServController {
     }
     //per front
 
-    @GetMapping("/getFoldByUser")
-    public ResponseEntity getFoldByUser(@RequestBody getModelHelper2 gtm2){
-        Optional<Professor> profOp = this.userInterface.getByUsername(gtm2.getUsername());
-        Professor p = profOp.get();
-        int profId =p.getProfId();
-        Optional<Folder> f =this.profServ.getFoldByUser(profId);
-        return ResponseEntity.ok(f);
 
-    }
 
     @GetMapping("/getDocByFolder")
     public ResponseEntity getDocByFold(@RequestBody getModelHelper gtm){
