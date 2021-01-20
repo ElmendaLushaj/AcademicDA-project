@@ -48,7 +48,7 @@ public class ProfServController {
 
     }
 //ADDDocument Problem
-/*    @PostMapping("/addDoc")
+    @PostMapping("/addDoc")
     public void addDoc(@RequestBody AddDocumentHelper sdH){
        Optional<Folder> fl = this.profServ.getFoldById(sdH.getFolder());
         Folder f = fl.get();
@@ -58,7 +58,7 @@ public class ProfServController {
         Professor p = f.getProfessor();
 
 
-        Document d = new Document(sdH.getCreationD() , sdH.getPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType(), p , f ,getAById(3));
+        Document d = new Document(sdH.getCreationD() , sdH.getPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType(), p , f);
         profServ.addDocument(d);
     }
 
@@ -67,7 +67,7 @@ public class ProfServController {
         return a.get();
     }
 
- */
+
     @GetMapping("/provFold")
     public Folder getFold(int id){
         Optional<Folder> f = profServ.getFoldById(id);

@@ -53,7 +53,7 @@ public class Professor {
 
 
     public Professor(){}
-   /* public Professor(String Username , String password){
+   public Professor(String Username , String password){
         this.Username = Username;
         this.password = password;
     }
@@ -76,12 +76,12 @@ public class Professor {
 
     }
 
-    */
 
 
 
 
-    public Professor(Professor.ProfessorBuilder professorBuilder) {
+
+/*    public Professor(Professor.ProfessorBuilder professorBuilder) {
         this.Name=professorBuilder.Name;
         this.email=professorBuilder.email;
         this.degree=professorBuilder.degree;
@@ -90,7 +90,7 @@ public class Professor {
         this.ProfId=professorBuilder.ProfId;
 
 
-    }
+    }*/
 
     public String getUsername() {
         return Username;
@@ -137,7 +137,7 @@ public class Professor {
     }
 
 
-    public static class ProfessorBuilder{
+    /*public static class ProfessorBuilder{
         private String Name;
         private String email;
         private String degree;
@@ -181,6 +181,6 @@ public class Professor {
             return  new Professor(this);
         }
 
-    }
+    }*/
 }
 

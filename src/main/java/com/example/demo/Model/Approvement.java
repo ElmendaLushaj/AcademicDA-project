@@ -14,14 +14,11 @@ public class Approvement {
     @Column(nullable=false)
     private boolean approveRefuse;
 
-   /* @ManyToOne
+   @ManyToOne
     @JoinColumn(name="documentId")
     private Document document;
-*/
 
-    @OneToOne(mappedBy = "approve" , fetch= FetchType.LAZY ,
-    cascade = CascadeType.ALL)
-    private Document document;
+
 
     public Approvement(int approvementId, String approvedBy, boolean approveRefuse, Document document) {
         this.approvementId = approvementId;

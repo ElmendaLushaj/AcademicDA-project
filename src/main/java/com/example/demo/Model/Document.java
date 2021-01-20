@@ -66,7 +66,7 @@ public class Document {
         this.com = coms;
     }
 
-   /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "document")
+   @OneToMany(cascade = CascadeType.ALL, mappedBy = "document")
     private Set<Approvement>  app;
 
     public Set<Approvement> getApp() {
@@ -75,13 +75,11 @@ public class Document {
 
     public void setApprovements(Set<Approvement> apps) {
         this.app = apps;
-    }*/
+    }
 
 
 
-    @OneToOne (fetch = FetchType.LAZY , optional = false)
 
-     private Approvement approve;
 
 
 
@@ -101,7 +99,7 @@ public class Document {
     public Document(){}
 
 
-    public Document(Date creationD,String docPath, Date editD, double fileSize,String name,  String type , Professor professor,Folder folder ,Approvement approve) {
+    public Document(Date creationD,String docPath, Date editD, double fileSize,String name,  String type , Professor professor,Folder folder) {
         this.name = name;
         this.fileSize = fileSize;
         this.type = type;
@@ -110,7 +108,7 @@ public class Document {
         this.docPath = docPath;
         this.professor = professor;
         this.folder = folder;
-        this.approve = approve;
+
 
 
 
