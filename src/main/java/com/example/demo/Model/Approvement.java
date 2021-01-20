@@ -30,10 +30,12 @@ public class Approvement {
         this.document = document;
     }
 
-    public Approvement(){}
+
+
+
 
     public int getApprovementId() {
-        return approvementId;
+     return approvementId;
     }
 
     public String getApprovedBy() {

@@ -9,6 +9,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+
 
 import java.util.Arrays;
 
@@ -18,22 +20,36 @@ import java.util.Arrays;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.cors().and().csrf().disable();
-        }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable();
 
-        @Bean
-        CorsConfigurationSource corsConfigurationSource(){
-            final UrlBasedCorsConfigurationSource source=new UrlBasedCorsConfigurationSource();
+    }
 
-            CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-            corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
-            corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-            corsConfiguration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-            source.registerCorsConfiguration("/**", corsConfiguration);
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 
-            return source;
+        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+        corsConfiguration.setAllowedOrigins(Arrays.asList("*"));
+        corsConfiguration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+        corsConfiguration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
+        source.registerCorsConfiguration("/**", corsConfiguration);
 
-        }
+        return source;
+
+    }
+
+
+   /* @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedOrigins("http://domain2.com")
+                .allowedMethods("PUT", "DELETE")
+                .allowedHeaders("header1", "header2", "header3")
+                .exposedHeaders("header1", "header2")
+                .allowCredentials(false).maxAge(3600);
+    }*/
+
+
 }

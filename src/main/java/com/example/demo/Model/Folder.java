@@ -26,6 +26,14 @@ public class Folder {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "folder")
     private Set<Document> doc;
 
+    public Set<Document> getDoc() {
+        return doc;
+    }
+
+    public void setDocument(Set<Document> docs) {
+        this.doc = docs;
+    }
+
 
     public Folder( int folderID, String name, Professor professor) {
         this.folderID = folderID;

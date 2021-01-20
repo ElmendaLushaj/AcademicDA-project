@@ -18,5 +18,7 @@ public interface IProfessorService {
     void deleteDoc(int docId);
     void deleteFold(int foldId);
 
+    List<Document> docByFolder(Folder foldid);
+
 
 }

@@ -40,7 +40,7 @@ public class Document {
     private Professor professor;
 
     @ManyToOne
-    @JoinColumn(name="foldeId")
+    @JoinColumn(name="folderId")
     private Folder folder;
 
     public Document(String name, double fileSize, String type, Date creationD, Date editD, String docPath , Professor professor , Folder folder) {
@@ -80,13 +80,15 @@ public class Document {
 
 
     @OneToOne (fetch = FetchType.LAZY , optional = false)
-    @JoinColumn(name= "ApprovementId")
-    private Approvement approve;
+
+     private Approvement approve;
 
 
 
 
-    public Document(int docId, String name, double fileSize, String type, Date creationD, Date editD, String docPath, Professor professor) {
+
+
+   /* public Document(int docId, String name, double fileSize, String type, Date creationD, Date editD, String docPath, Professor professor) {
         DocId = docId;
         this.name = name;
         this.fileSize = fileSize;
@@ -95,11 +97,11 @@ public class Document {
         this.editD = editD;
         this.docPath = docPath;
         this.professor = professor;
-    }
+    }*/
     public Document(){}
 
 
-    public Document(Date creationD,String docPath, Date editD, double fileSize,String name,  String type, Professor professor , Folder folder ) {
+    public Document(Date creationD,String docPath, Date editD, double fileSize,String name,  String type , Professor professor,Folder folder ,Approvement approve) {
         this.name = name;
         this.fileSize = fileSize;
         this.type = type;
@@ -108,6 +110,10 @@ public class Document {
         this.docPath = docPath;
         this.professor = professor;
         this.folder = folder;
+        this.approve = approve;
+
+
+
 
     }
 
@@ -171,6 +177,14 @@ public class Document {
         this.professor = professor;
     }
 
-    public void addAtribute(String documentList, List<Document> documentList1) {
+    public Folder getFolder() {
+        return folder;
     }
+
+    public void setFolder(Folder folder) {
+        this.folder = folder;
+    }
+
+    //public void addAtribute(String documentList, List<Document> documentList1) {
+    //}
 }

@@ -89,4 +89,10 @@ public class ProfessorService implements IProfessorService{
     public void deleteFold(int id){
         folDao.deleteById(id);
     }
+
+    @Override
+    public List<Document> docByFolder(Folder foldid){
+        List<Document> docFolder = docDao.docByFolder(foldid);
+        return docFolder;
+    }
 }

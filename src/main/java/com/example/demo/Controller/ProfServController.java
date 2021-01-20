@@ -1,9 +1,9 @@
 package com.example.demo.Controller;
 
+import com.example.demo.Helpers.AddDocumentHelper;
 import com.example.demo.Helpers.FolderHelper;
 import com.example.demo.Helpers.getModelHelper;
 import com.example.demo.Helpers.getModelHelper2;
-import com.example.demo.Helpers.saveDocumentHelper;
 import com.example.demo.Model.*;
 import com.example.demo.Services.IProfessorService;
 import com.example.demo.Services.IUserInterface;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping( "/api/professor")
 public class ProfServController {
@@ -47,18 +47,40 @@ public class ProfServController {
         profServ.addFolder(f);
 
     }
-
-    @PostMapping("/addDoc")
-    public void addDoc(@RequestBody saveDocumentHelper sdH){
-        Optional<Folder> fl = this.profServ.getFoldById(sdH.getFoldId());
+//ADDDocument Problem
+/*    @PostMapping("/addDoc")
+    public void addDoc(@RequestBody AddDocumentHelper sdH){
+       Optional<Folder> fl = this.profServ.getFoldById(sdH.getFolder());
         Folder f = fl.get();
-        Optional<Professor> pr=this.userInterface.getProfById(sdH.getProfID());
-        Professor p = pr.get();
+       //Optional<Professor> pr=this.userInterface.getProfById(sdH.getProfID());
+        // professor p = pr.get();
+       // Folder f = getFold(sdH.getFoldId());
+        Professor p = f.getProfessor();
 
 
-
-        Document d = new Document(sdH.getCreationD() , sdH.getDocPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType() ,p , f);
+        Document d = new Document(sdH.getCreationD() , sdH.getPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType(), p , f ,getAById(3));
         profServ.addDocument(d);
+    }
+
+    public Approvement getAById(int id){
+        Optional<Approvement>a  =profServ.getAppById(id);
+        return a.get();
+    }
+
+ */
+    @GetMapping("/provFold")
+    public Folder getFold(int id){
+        Optional<Folder> f = profServ.getFoldById(id);
+        Folder fol = f.get();
+        return fol;
+
+    }
+    @GetMapping("/provDoc")
+    public Professor getDoc2(int id){
+        Optional<Professor> f = userInterface.getProfById(id);
+        Professor fol = f.get();
+        return fol;
+
     }
 
 
@@ -100,6 +122,8 @@ public class ProfServController {
         return ResponseEntity.ok(a);
 
     }
+    //per front
+
     @GetMapping("/getFoldByUser")
     public ResponseEntity getFoldByUser(@RequestBody getModelHelper2 gtm2){
         Optional<Professor> profOp = this.userInterface.getByUsername(gtm2.getUsername());
@@ -108,5 +132,13 @@ public class ProfServController {
         Optional<Folder> f =this.profServ.getFoldByUser(profId);
         return ResponseEntity.ok(f);
 
+    }
+
+    @GetMapping("/getDocByFolder")
+    public ResponseEntity getDocByFold(@RequestBody getModelHelper gtm){
+        Optional <Folder> f = profServ.getFoldById(gtm.getModelId());
+        Folder fo =f.get();
+        List<Document> doc = profServ.docByFolder(fo);
+        return ResponseEntity.ok(doc);
     }
 }
