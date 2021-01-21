@@ -70,27 +70,30 @@ public class ProfServController {
         return ResponseEntity.ok(f);
 
     }
+//Lidhe me front
+    @GetMapping("/numberOfDoc")
+    public ResponseEntity totalDocuments(@RequestBody getModelHelper2 gtm){
+        Optional<Professor> profOp = this.userInterface.getByUsername(gtm.getUsername());
+        Professor p =profOp.get();
+        int nrDoc =p.getDoc().size();
+        return  ResponseEntity.ok(nrDoc);
 
-    public Approvement getAById(int id){
-        Optional<Approvement>a  =profServ.getAppById(id);
-        return a.get();
+    }
+
+    //Lidhe me front
+    @GetMapping("/numberOfFolders")
+    public ResponseEntity totalFolders(@RequestBody getModelHelper2 gtm){
+        Optional<Professor> profOp = this.userInterface.getByUsername(gtm.getUsername());
+        Professor p =profOp.get();
+        int nrFold =p.getFold().size();
+        return  ResponseEntity.ok(nrFold);
+
     }
 
 
-    @GetMapping("/provFold")
-    public Folder getFold(int id){
-        Optional<Folder> f = profServ.getFoldById(id);
-        Folder fol = f.get();
-        return fol;
 
-    }
-    @GetMapping("/provDoc")
-    public Professor getDoc2(int id){
-        Optional<Professor> f = userInterface.getProfById(id);
-        Professor fol = f.get();
-        return fol;
 
-    }
+
 
 
     @PostMapping("/deleteFold")
