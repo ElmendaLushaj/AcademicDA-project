@@ -1,5 +1,6 @@
 package com.example.demo.Services;
 
+import com.example.demo.Helpers.SortHelper;
 import com.example.demo.Model.Document;
 import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
@@ -20,4 +21,5 @@ public interface IUserInterface {
 */
     List<Document> listAll(String keyword);
 
+    void sort(String sortType, SortHelper sortHelper);
 }

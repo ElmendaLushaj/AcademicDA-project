@@ -3,9 +3,12 @@ package com.example.demo.Services;
 import com.example.demo.DAL.DocumentDAO;
 import com.example.demo.DAL.FolderDao;
 import com.example.demo.DAL.ProfessorDAO;
+import com.example.demo.Helpers.SortHelper;
 import com.example.demo.Model.Document;
 import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
+import com.example.demo.Strategy.NameSortStrategy;
+import com.example.demo.Strategy.SortStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +65,40 @@ public class UserService implements IUserInterface {
         }
         return documentDao.findAll();
     }
+
+    @Override
+    public void sort(String sortType, SortHelper sortHelper) {
+
+            if(sortType.toLowerCase().equals("NameSort")){
+               Sorting(new NameSortStrategy(){
+                @Override
+                public List<Document> sort(List<Document> documents) {
+                    return documentDao.sortbyCreationDate();
+                }
+            });
+            }
+            else if(sortType.toLowerCase().equals("DateSort")) {
+
+                Sorting(new SortStrategy() {
+
+                    @Override
+                    public List<Document> sort(List<Document> documents) {
+                        return documentDao.sortbyCreationDate();
+                    }
+                });
+
+
+            }
+
+        }
+
+    private void Sorting(SortStrategy nameSortStrategy) {
+        return;
+    }
+
+
+
+
     @Override
     public List<Folder> listAllFolder(String name){
         if(name !=null){
@@ -76,12 +113,13 @@ public class UserService implements IUserInterface {
 
             return p;
 
-
-
     }
 
 
+
 }
+
+
 
 
 

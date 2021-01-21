@@ -1,9 +1,6 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Helpers.LoginHelpers;
-import com.example.demo.Helpers.RegisterHelper;
-import com.example.demo.Helpers.getModelHelper2;
-import com.example.demo.Helpers.searchHelper;
+import com.example.demo.Helpers.*;
 import com.example.demo.Model.Document;
 import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
@@ -64,6 +61,9 @@ public class UserServController {
         return ResponseEntity.ok(documents);
     }
 
-
+    @PostMapping("/{sortType}")
+    public void sorting(@PathVariable String sortType,  @RequestBody SortHelper sortHelper){
+        this.userInterface.sort(sortType,sortHelper);
+    }
 }
 
