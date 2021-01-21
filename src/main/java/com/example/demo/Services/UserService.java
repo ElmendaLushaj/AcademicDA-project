@@ -3,15 +3,16 @@ package com.example.demo.Services;
 import com.example.demo.DAL.DocumentDAO;
 import com.example.demo.DAL.FolderDao;
 import com.example.demo.DAL.ProfessorDAO;
-import com.example.demo.Helpers.SortHelper;
+import com.example.demo.Helpers.getModelHelper2;
+import com.example.demo.Helpers.searchHelper;
 import com.example.demo.Model.Document;
 import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
-import com.example.demo.Strategy.NameSortStrategy;
-import com.example.demo.Strategy.SortStrategy;
+import com.example.demo.Strategy.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,14 +67,14 @@ public class UserService implements IUserInterface {
         return documentDao.findAll();
     }
 
-   /* @Override
+  /* @Override
     public void sort(String sortType, SortHelper sortHelper) {
 
             if(sortType.toLowerCase().equals("NameSort")){
                Sorting(new NameSortStrategy(){
                 @Override
                 public List<Document> sort(List<Document> documents) {
-                    return documentDao.sortbyCreationDate();
+                    return documentDao.sortByCreationDate();
                 }
             });
             }
@@ -83,19 +84,19 @@ public class UserService implements IUserInterface {
 
                     @Override
                     public List<Document> sort(List<Document> documents) {
-                        return documentDao.sortbyCreationDate();
+                        return documentDao.sortByCreationDate();
                     }
                 });
 
 
             }
 
-        }
+        }*/
 
-    private void Sorting(SortStrategy nameSortStrategy) {
-        return;
-    }
-     */
+  /* private void Sorting(SortStrategy nameSortStrategy) {
+       nameSortStrategy.sort()
+    }*/
+
 
 
 
@@ -114,8 +115,28 @@ public class UserService implements IUserInterface {
             return p;
 
     }
+  /*  @Override
+    public List<Document> searchDoc(String searchType , String keyword){
+        if(searchType.equalsIgnoreCase("nameSearch")){
+         SearchStrategy ns = new NameSearch();
+         List<Document> d =ns.search(keyword);
+         return d;
 
 
+
+        }else if(searchType.equalsIgnoreCase("typeSearch")){
+           // searchDocument(new TypeSearch(gtm.getUsername()), name);
+            SearchStrategy ns = new TypeSearch();
+            List<Document> d =ns.search(keyword);
+            return d;
+        }
+        return null;
+
+    }
+private List<Document> searchDocument(SearchStrategy sch , String keyword){
+       List<Document> l =  sch.search(keyword);
+       return  l;
+    }*/
 
 }
 

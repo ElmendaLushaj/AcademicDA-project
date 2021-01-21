@@ -61,9 +61,15 @@ public class UserServController {
         return ResponseEntity.ok(documents);
     }
 
-   /* @PostMapping("/{sortType}")
+   /*@PostMapping("/{sortType}")
     public void sorting(@PathVariable String sortType,  @RequestBody SortHelper sortHelper){
         this.userInterface.sort(sortType,sortHelper);
+    }*/
+
+  /*  @GetMapping("/{searchType}/searchDoc")
+    public ResponseEntity searchDocument(@PathVariable String searchType, @RequestBody searchHelper sch){
+        List<Document> searchDoc =  this.userInterface.searchDoc(searchType, sch.getName()) ;
+     return ResponseEntity.ok(searchDoc);
     }*/
 }
 
