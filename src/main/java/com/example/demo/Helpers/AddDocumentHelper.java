@@ -12,7 +12,19 @@ public class AddDocumentHelper implements Serializable {
     private double fileSize;
     private int folder;
 
-    public AddDocumentHelper(String name, String type, String path, Date creationD, Date editedD, double fileSize, int folder) {
+
+    public AddDocumentHelper(AddDocumentHelper.AddDocumentHelperBuilder addDocumentHelperBuilder) {
+        this.creationD = addDocumentHelperBuilder.creationD;
+        this.path = addDocumentHelperBuilder.path;
+        this.editedD = addDocumentHelperBuilder.editedD;
+        this.fileSize = addDocumentHelperBuilder.fileSize;
+        this.name = addDocumentHelperBuilder.name;
+        this.type = addDocumentHelperBuilder.type;
+        this.folder = addDocumentHelperBuilder.folder;
+    }
+
+
+    /*public AddDocumentHelper(String name, String type, String path, Date creationD, Date editedD, double fileSize, int folder) {
         this.name = name;
         this.type = type;
         this.path = path;
@@ -21,6 +33,8 @@ public class AddDocumentHelper implements Serializable {
         this.fileSize = fileSize;
         this.folder = folder;
     }
+
+     */
 
     public String getName() {
         return name;
@@ -76,5 +90,49 @@ public class AddDocumentHelper implements Serializable {
 
     public void setFolder(int folder) {
         this.folder = folder;
+    }
+    public static  class AddDocumentHelperBuilder{
+        private Date creationD;
+        private String path;
+        private Date editedD;
+        private double fileSize;
+        private String name;
+        private String type;
+        private int folder;
+
+
+        public AddDocumentHelperBuilder(String name) {
+            this.name = name;
+        }
+
+        public AddDocumentHelper.AddDocumentHelperBuilder setCreationD(Date creationD){
+            this.creationD=creationD;
+            return this;
+        }
+        public AddDocumentHelper.AddDocumentHelperBuilder setDocPath(String path){
+            this.path=path;
+            return this;
+        }
+        public AddDocumentHelper.AddDocumentHelperBuilder setEditedD(Date editedD){
+            this.editedD=editedD;
+            return this;
+        }
+        public AddDocumentHelper.AddDocumentHelperBuilder setFileSize(double fileSize){
+            this.editedD=editedD;
+            return this;
+        }
+        public AddDocumentHelper.AddDocumentHelperBuilder setType(String type){
+            this.type=type;
+            return this;
+        }
+
+        public AddDocumentHelper.AddDocumentHelperBuilder setFolder(int folder){
+            this.folder=folder;
+            return this;
+        }
+        public AddDocumentHelper build(){
+            return  new AddDocumentHelper(this);
+        }
+
     }
 }
