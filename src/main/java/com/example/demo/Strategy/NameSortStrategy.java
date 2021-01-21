@@ -10,7 +10,7 @@ public NameSortStrategy(String name){
     this.name=name;
 }
 
-    public NameSortStrategy() {
+/*    public NameSortStrategy() {
 
     }
 
@@ -20,4 +20,6 @@ public NameSortStrategy(String name){
 
         return documents;
     }
+
+ */
 }

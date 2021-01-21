@@ -13,7 +13,7 @@ public class AddDocumentHelper implements Serializable {
     private int folder;
 
 
-    public AddDocumentHelper(AddDocumentHelper.AddDocumentHelperBuilder addDocumentHelperBuilder) {
+    /*public AddDocumentHelper(AddDocumentHelper.AddDocumentHelperBuilder addDocumentHelperBuilder) {
         this.creationD = addDocumentHelperBuilder.creationD;
         this.path = addDocumentHelperBuilder.path;
         this.editedD = addDocumentHelperBuilder.editedD;
@@ -21,10 +21,10 @@ public class AddDocumentHelper implements Serializable {
         this.name = addDocumentHelperBuilder.name;
         this.type = addDocumentHelperBuilder.type;
         this.folder = addDocumentHelperBuilder.folder;
-    }
+    }*/
+    public AddDocumentHelper(){}
 
-
-    /*public AddDocumentHelper(String name, String type, String path, Date creationD, Date editedD, double fileSize, int folder) {
+    public AddDocumentHelper(String name, String type, String path, Date creationD, Date editedD, double fileSize, int folder) {
         this.name = name;
         this.type = type;
         this.path = path;
@@ -34,7 +34,7 @@ public class AddDocumentHelper implements Serializable {
         this.folder = folder;
     }
 
-     */
+
 
     public String getName() {
         return name;
@@ -91,7 +91,9 @@ public class AddDocumentHelper implements Serializable {
     public void setFolder(int folder) {
         this.folder = folder;
     }
-    public static  class AddDocumentHelperBuilder{
+
+
+    /*public static  class AddDocumentHelperBuilder{
         private Date creationD;
         private String path;
         private Date editedD;
@@ -134,5 +136,5 @@ public class AddDocumentHelper implements Serializable {
             return  new AddDocumentHelper(this);
         }
 
-    }
+    }*/
 }

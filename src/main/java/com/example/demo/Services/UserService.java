@@ -66,7 +66,7 @@ public class UserService implements IUserInterface {
         return documentDao.findAll();
     }
 
-    @Override
+   /* @Override
     public void sort(String sortType, SortHelper sortHelper) {
 
             if(sortType.toLowerCase().equals("NameSort")){
@@ -95,7 +95,7 @@ public class UserService implements IUserInterface {
     private void Sorting(SortStrategy nameSortStrategy) {
         return;
     }
-
+     */
 
 
 

@@ -61,9 +61,9 @@ public class UserServController {
         return ResponseEntity.ok(documents);
     }
 
-    @PostMapping("/{sortType}")
+   /* @PostMapping("/{sortType}")
     public void sorting(@PathVariable String sortType,  @RequestBody SortHelper sortHelper){
         this.userInterface.sort(sortType,sortHelper);
-    }
+    }*/
 }
 

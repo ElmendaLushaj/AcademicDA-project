@@ -17,9 +17,11 @@ public interface DocumentDAO extends JpaRepository<Document , Integer> {
     @Query("select d from Document d where d.folder= ?1")
     public List<Document> docByFolder(Folder f);
 
-   @Query("SELECT d from Document order by name ASC")
+  /* @Query("SELECT d from Document order by name ASC")
     public  List<Document>sortbyName();
 
     @Query("SELECT  d from  Document order by creationD ASC ")
     public List<Document>sortbyCreationDate();
+    */
+
 }

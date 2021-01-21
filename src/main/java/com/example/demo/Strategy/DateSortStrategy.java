@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DateSortStrategy implements SortStrategy{
 
-   private Date creationD;
+   /*private Date creationD;
    public DateSortStrategy(Date creationD){
        this.creationD=creationD;
    }
@@ -21,4 +21,6 @@ public class DateSortStrategy implements SortStrategy{
     public List<Document> sort(List<Document> documents) {
         return documents;
     }
+
+    */
 }

@@ -21,5 +21,5 @@ public interface IUserInterface {
 */
     List<Document> listAll(String keyword);
 
-    void sort(String sortType, SortHelper sortHelper);
+    /*void sort(String sortType, SortHelper sortHelper);*/
 }
