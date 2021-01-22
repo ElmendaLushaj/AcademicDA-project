@@ -115,7 +115,7 @@ public class UserService implements IUserInterface {
             return p;
 
     }
-  /*  @Override
+   @Override
     public List<Document> searchDoc(String searchType , String keyword){
         if(searchType.equalsIgnoreCase("nameSearch")){
          SearchStrategy ns = new NameSearch();
@@ -136,7 +136,7 @@ public class UserService implements IUserInterface {
 private List<Document> searchDocument(SearchStrategy sch , String keyword){
        List<Document> l =  sch.search(keyword);
        return  l;
-    }*/
+    }
 
 }
 

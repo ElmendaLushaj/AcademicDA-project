@@ -70,20 +70,20 @@ public class ProfServController {
         return ResponseEntity.ok(f);
 
     }
-//Lidhe me front
-    @GetMapping("/numberOfDoc")
-    public ResponseEntity totalDocuments(@RequestBody getModelHelper2 gtm){
-        Optional<Professor> profOp = this.userInterface.getByUsername(gtm.getUsername());
+
+    @GetMapping("/numberOfDoc/{useri}")
+    public ResponseEntity totalDocuments(@PathVariable String  useri){
+        Optional<Professor> profOp = this.userInterface.getByUsername(useri);
         Professor p =profOp.get();
         int nrDoc =p.getDoc().size();
         return  ResponseEntity.ok(nrDoc);
 
     }
 
-    //Lidhe me front
-    @GetMapping("/numberOfFolders")
-    public ResponseEntity totalFolders(@RequestBody getModelHelper2 gtm){
-        Optional<Professor> profOp = this.userInterface.getByUsername(gtm.getUsername());
+
+    @GetMapping("/numberOfFolders/{useri}")
+    public ResponseEntity totalFolders(@PathVariable String useri){
+        Optional<Professor> profOp = this.userInterface.getByUsername(useri);
         Professor p =profOp.get();
         int nrFold =p.getFold().size();
         return  ResponseEntity.ok(nrFold);
