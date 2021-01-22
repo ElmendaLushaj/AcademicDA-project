@@ -5,103 +5,76 @@ import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.List;
 
-public class ProfessorResponse implements Serializable {
-    private int ProfId;
-    private String email;
-    private String password;
-    private String degree;
-    private String Username;
-    private String Name;
+public class ProfessorResponse<T> implements Serializable {
+    private T data;
+    private String mesazhi;
+    private int statusi;
+    private String errori;
 
-    public ProfessorResponse(ProfessorResponse.ProfessorResponseBuilder professorResponseBuilder) {
-        this.Name = professorResponseBuilder.Name;
-        this.email = professorResponseBuilder.email;
-        this.degree = professorResponseBuilder.degree;
-        this.Username = professorResponseBuilder.Username;
-        this.password = professorResponseBuilder.password;
+    public ProfessorResponse(ProfessorResponseBuilder profResponseBuilder){
+        this.data=(T)profResponseBuilder.data;
+        this.mesazhi=profResponseBuilder.mesazhi;
+        this.statusi=profResponseBuilder.statusi;
+        this.errori=profResponseBuilder.errori;
     }
 
 
 
-
-
-    public String getUsername() {
-        return Username;
+    public T getData() {
+        return data;
     }
 
-    public void setUsername(String username) {
-        Username = username;
+    public void setData(T data) {
+        this.data = data;
     }
 
-    public int getProfId() {
-        return ProfId;
+    public String getMesazhi() {
+        return mesazhi;
     }
 
-    public String getName() {
-        return Name;
+    public void setMesazhi(String mesazhi) {
+        this.mesazhi = mesazhi;
     }
 
-    public String getEmail() {
-        return email;
+    public int getStatusi() {
+        return statusi;
     }
 
-    public String getPassword() {
-        return password;
+    public void setStatusi(int statusi) {
+        this.statusi = statusi;
     }
 
-    public String getDegree() {
-        return degree;
+    public String getErrori() {
+        return errori;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setErrori(String errori) {
+        this.errori = errori;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setDegree(String degree) {
-        this.degree = degree;
-    }
-
-    public static class ProfessorResponseBuilder{
-        private String Name;
-        private String email;
-        private String degree;
-        private String Username;
-        private String password;
-        private int ProfID;
-
-        public  ProfessorResponseBuilder(String Username,String password){
-            this.Username=Username;
-            this.password=password;
-
+    public static class ProfessorResponseBuilder<T>{
+        private T data;
+        private String mesazhi;
+        private int statusi;
+        private String errori;
+        public ProfessorResponseBuilder(int statusi){
+            this.statusi = statusi;
         }
-        public ProfessorResponse.ProfessorResponseBuilder setName(String Name){
-            this.Name=Name;
+        public ProfessorResponseBuilder setData(T data){
+            this.data = data;
             return this;
         }
-        public ProfessorResponse.ProfessorResponseBuilder setEmail(String email){
-            this.email=email;
+        public ProfessorResponseBuilder setMesazhin(String mesazhi){
+            this.mesazhi = mesazhi;
             return this;
         }
-        public ProfessorResponse.ProfessorResponseBuilder setDegree(String degree){
-            this.degree=degree;
-            return this;
-        }
-        public ProfessorResponse.ProfessorResponseBuilder setProfID(int ProfID){
-            this.ProfID=ProfID;
+        public ProfessorResponseBuilder setErrorin(String errori){
+            this.errori = errori;
             return this;
         }
         public ProfessorResponse build(){
-            return  new ProfessorResponse(this);
+            return new ProfessorResponse(this);
         }
-
 
     }
 

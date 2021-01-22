@@ -22,9 +22,12 @@ public class UserServController {
 
 
    @GetMapping("/getALLProf")
-   public ResponseEntity getAllProfessors(){
+   public ProfessorResponse getAllProfessors(){
        List<Professor> professorList=this.userInterface.getAllProfessors();
-       return ResponseEntity.ok(professorList);
+       if(professorList ==null){
+           return new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Profesor").build();
+       }
+       return new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("Lista e suksesshme").setData(professorList).build();
 
    }
     @PostMapping("/login")
