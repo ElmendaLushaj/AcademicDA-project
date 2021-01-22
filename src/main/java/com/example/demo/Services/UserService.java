@@ -116,26 +116,38 @@ public class UserService implements IUserInterface {
 
     }
    @Override
-    public List<Document> searchDoc(String searchType , String keyword){
+    public List<Document> searchDoc(String searchType , String name){
         if(searchType.equalsIgnoreCase("nameSearch")){
-         SearchStrategy ns = new NameSearch();
-         List<Document> d =ns.search(keyword);
-         return d;
+        /* SearchStrategy ns = new NameSearch();
+         List<Document> d =ns.search(name);
+         if(d ==null){
+             return null;
+         }
+         return d*;/
+         */
+            List<Document> d =searchDocument(new NameSearch(),name);
+            return d;
 
 
 
         }else if(searchType.equalsIgnoreCase("typeSearch")){
            // searchDocument(new TypeSearch(gtm.getUsername()), name);
-            SearchStrategy ns = new TypeSearch();
-            List<Document> d =ns.search(keyword);
+          /*  SearchStrategy ns = new TypeSearch();
+            List<Document> d =ns.search(name);
+            if(d==null){
+                return null;
+            }
+            return d;*/
+            List<Document> d =searchDocument(new TypeSearch(),name);
             return d;
         }
-        return null;
+        List<Document> all = documentDao.findAll();
+        return all;
 
     }
-private List<Document> searchDocument(SearchStrategy sch , String keyword){
-       List<Document> l =  sch.search(keyword);
-       return  l;
+private List<Document> searchDocument(SearchStrategy sch , String name){
+       List<Document> list =  sch.search(name);
+       return  list;
     }
 
 }
