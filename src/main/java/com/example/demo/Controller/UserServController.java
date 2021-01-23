@@ -23,13 +23,15 @@ public class UserServController {
     private IUserInterface userInterface;
 
 
+
    @GetMapping("/getALLProf")
-   public ProfessorResponse getAllProfessors(){
+   public ResponseEntity<List<Professor>> getAllProfessors(){
        List<Professor> professorList=this.userInterface.getAllProfessors();
        if(professorList ==null){
-           return new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Profesor").build();
+           return null;
        }
-       return new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("Lista e suksesshme").setData(professorList).build();
+
+       return ResponseEntity.ok(professorList);
 
    }
     @PostMapping("/login")
