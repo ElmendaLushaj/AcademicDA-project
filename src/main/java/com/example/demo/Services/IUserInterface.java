@@ -16,6 +16,8 @@ public interface IUserInterface {
     Professor login(String username, String pass);
     void register(Professor p);
     List <Folder> listAllFolder(String name);
+
+    Folder getFolderByName(String name);
     Optional <Professor> getByUsername(String username);
     Optional<Professor> getProfById(int appId);
    /*void register(String name, String email , String password, String degree, String username);

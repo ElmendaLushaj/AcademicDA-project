@@ -138,10 +138,12 @@ public class ProfServController {
 
 
 
-    @GetMapping("/getDocByFolder")
-    public ResponseEntity getDocByFold(@RequestBody getModelHelper gtm){
-        Optional <Folder> f = profServ.getFoldById(gtm.getModelId());
-        Folder fo =f.get();
+    @GetMapping("/getDocByFolder/{Foldname}")
+    public ResponseEntity getDocByFold(@PathVariable String Foldname){
+        Folder f = userInterface.getFolderByName(Foldname);
+        int id = f.getFolderID();
+        Optional <Folder> f2 = profServ.getFoldById(id);
+        Folder fo =f2.get();
         List<Document> doc = profServ.docByFolder(fo);
         return ResponseEntity.ok(doc);
     }

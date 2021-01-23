@@ -150,6 +150,12 @@ private List<Document> searchDocument(SearchStrategy sch , String name){
        return  list;
     }
 
+    @Override
+         public Folder getFolderByName(String name){
+        Folder f =this.folderDao.findFolderByName(name);
+        return f;
+    }
+
 }
 
 
