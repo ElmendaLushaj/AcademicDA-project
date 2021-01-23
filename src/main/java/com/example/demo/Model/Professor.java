@@ -53,7 +53,7 @@ public class Professor {
 
 
     public Professor(){}
-   public Professor(String Username , String password){
+  /* public Professor(String Username , String password){
         this.Username = Username;
         this.password = password;
     }
@@ -74,14 +74,14 @@ public class Professor {
         this.degree = degree;
         this.Username = Username;
 
-    }
+    }*/
 
 
 
 
 
 
-/*    public Professor(Professor.ProfessorBuilder professorBuilder) {
+    public Professor(ProfessorBuilder professorBuilder) {
         this.Name=professorBuilder.Name;
         this.email=professorBuilder.email;
         this.degree=professorBuilder.degree;
@@ -90,7 +90,7 @@ public class Professor {
         this.ProfId=professorBuilder.ProfId;
 
 
-    }*/
+    }
 
     public String getUsername() {
         return Username;
@@ -120,7 +120,7 @@ public class Professor {
         return degree;
     }
 
-    public void setName(String name) {
+    /*public void setName(String name) {
         Name = name;
     }
 
@@ -134,10 +134,10 @@ public class Professor {
 
     public void setDegree(String degree) {
         this.degree = degree;
-    }
+    }*/
 
 
-    /*public static class ProfessorBuilder{
+    public static class ProfessorBuilder{
         private String Name;
         private String email;
         private String degree;
@@ -145,42 +145,45 @@ public class Professor {
         private String password;
         private int ProfId;
 
-        public ProfessorBuilder(String password,String username){
+        public ProfessorBuilder(String password,String Username){
             this.password=password;
             this.Username=Username;
         }
 
-        public Professor.ProfessorBuilder setProfId(int ProfId){
+        public ProfessorBuilder setProfId(int ProfId){
             this.ProfId=ProfId;
             return this;
         }
 
 
-        public Professor.ProfessorBuilder setName(String Name){
+        public ProfessorBuilder setName(String Name){
             this.Name=Name;
             return this;
 
         }
-        public Professor.ProfessorBuilder setEmail(String email){
+        public ProfessorBuilder setEmail(String email){
             this.email=email;
             return this;
         }
-        public Professor.ProfessorBuilder setDegree(String degree) {
+        public ProfessorBuilder setDegree(String degree) {
             this.degree = degree;
             return this;
         }
-        public Professor.ProfessorBuilder setUsername(String Username){
+        public ProfessorBuilder setUsername(String Username){
             this.Username=Username;
             return this;
         }
-        public Professor.ProfessorBuilder setPassword(String password){
+        public ProfessorBuilder setPassword(String password){
             this.password=password;
             return this;
         }
         public Professor build(){
-            return  new Professor(this);
+            return new Professor(this);
         }
 
-    }*/
+    }
+
+
+
 }
 
