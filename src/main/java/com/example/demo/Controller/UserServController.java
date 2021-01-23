@@ -5,6 +5,8 @@ import com.example.demo.Model.Document;
 import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
 import com.example.demo.Services.IUserInterface;
+import com.example.demo.Strategy.NameSearch;
+import com.example.demo.Strategy.SearchStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -75,5 +77,8 @@ public class UserServController {
 
      return ResponseEntity.ok(searchDoc);
     }
+
+
+
 }
 
