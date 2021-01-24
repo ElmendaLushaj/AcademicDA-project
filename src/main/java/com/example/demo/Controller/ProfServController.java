@@ -29,14 +29,10 @@ public class ProfServController {
         return ResponseEntity.ok(documentList);
 
     }
-
-
     @PostMapping("/deleteDoc")
     public void deleteDoc(@RequestBody getModelHelper gtm){
          profServ.deleteDoc(gtm.getModelId());
     }
-
-
 
     @PostMapping("/addFolder3")
     public  void addFolder2(@RequestBody FolderHelper folderh){
@@ -47,7 +43,7 @@ public class ProfServController {
         profServ.addFolder(f);
 
     }
-//ADDDocument Problem
+
     @PostMapping("/addDoc")
     public void addDoc(@RequestBody AddDocumentHelper sdH){
        Optional<Folder> fl = this.profServ.getFoldById(sdH.getFolder());
@@ -61,6 +57,7 @@ public class ProfServController {
         Document d = new Document(sdH.getCreationD() , sdH.getPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType(), p , f);
         profServ.addDocument(d);
     }
+
     @GetMapping("/getFoldByUser/{username}")
     public ResponseEntity getFoldByUser(@PathVariable String username){
         Optional<Professor> profOp = this.userInterface.getByUsername(username);
@@ -90,21 +87,15 @@ public class ProfServController {
 
     }
 
-
-
-
-
-
-
     @PostMapping("/deleteFold")
     public void deleteFold(@RequestBody getModelHelper gtm){
         profServ.deleteFold(gtm.getModelId());
     }
 
-    @GetMapping("/getDoc")
-    public ResponseEntity getDocument(@RequestBody getModelHelper gtm){
+    @GetMapping("/getDoc/{docId}")
+    public ResponseEntity getDocument(@PathVariable int docId){
 
-        Optional<Document> d =this.profServ.getDocById(gtm.getModelId());
+        Optional<Document> d =this.profServ.getDocById(docId);
         return ResponseEntity.ok(d);
 
     }
