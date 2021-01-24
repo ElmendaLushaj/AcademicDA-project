@@ -52,6 +52,7 @@ public class UserServController {
         Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());
 
         if(professor==null){
+                //|| professorDAO.existsByUsername(login.getUsername())){
             return ResponseEntity.notFound().build();
         }
 

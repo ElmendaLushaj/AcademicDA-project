@@ -155,6 +155,16 @@ private List<Document> searchDocument(SearchStrategy sch , String name){
         Folder f =this.folderDao.findFolderByName(name);
         return f;
     }
+  /*  @Override
+    public boolean exists(String username){
+        if(professorDao.existsByUsername(username)){
+            return true;
+        }
+        else
+            return false;
+    }
+
+*/
 
 }
 
