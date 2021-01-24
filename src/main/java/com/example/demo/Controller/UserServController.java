@@ -23,8 +23,7 @@ public class UserServController {
     private IUserInterface userInterface;
 
 
-
-   @GetMapping("/getALLProf")
+/* @GetMapping("/getALLProf")
    public ResponseEntity<List<Professor>> getAllProfessors(){
        List<Professor> professorList=this.userInterface.getAllProfessors();
        if(professorList ==null){
@@ -33,7 +32,21 @@ public class UserServController {
 
        return ResponseEntity.ok(professorList);
 
-   }
+   }*/
+
+    @GetMapping("/getALLProf")
+    public ResponseEntity getAllProfessors(){
+        List<Professor> professorList=this.userInterface.getAllProfessors();
+        if(professorList ==null){
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Profesor").build();
+            System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
+            return ResponseEntity.ok(pr);
+        }ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(professorList).build();
+        System.out.println(pr.getMesazhi()+""+pr.getStatusi());
+          return ResponseEntity.ok(pr.getData());
+
+    }
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginHelpers login){
         Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());
