@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 @Repository
 public interface ProfessorDAO extends JpaRepository<Professor , Integer> {
@@ -20,6 +21,9 @@ public interface ProfessorDAO extends JpaRepository<Professor , Integer> {
 */
   @Query("select p from Professor p where p.Username=?1")
   boolean existsByUsername(String username);
+
+    @Query("select p from Professor p where p.Username=?1")
+    List<Professor> existsByUsername2(String username);
 
 }
 

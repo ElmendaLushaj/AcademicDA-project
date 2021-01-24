@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping( "/api/user")
@@ -48,16 +49,31 @@ public class UserServController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginHelpers login){
-        Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());
+    public ProfessorResponse login(@RequestBody LoginHelpers login){
 
-        if(professor==null||!userInterface.exists(login.getUsername())){
+        List<Professor> lista = userInterface.existsUser(login.getUsername());
+      //  Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());
+//||!userInterface.exists(login.getUsername())
+        if(lista.size() == 0){
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston perdorues me nje username te till").build();
+            System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
+            return pr;
 
-            //return new ResponseEntity("User doesnt exist", HttpStatus.NOT_FOUND);
-            return ResponseEntity.notFound().build();
+        } else {
+            Optional<Professor> p2 = userInterface.getByUsername(login.getUsername());
+            Professor p = p2.get();
+            if(!p.getPassword().equals(login.getPassword())){
+                ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Password i gabuar").build();
+                System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
+                return pr;
+
+            }else {
+                Professor professor = this.userInterface.login(login.getUsername(), login.getPassword());
+                ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(professor).build();
+                System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+                return pr;
+            }
         }
-
-        return ResponseEntity.ok(professor);
     }
 
 
@@ -70,10 +86,20 @@ public class UserServController {
 
     }*/
     @PostMapping("/registre")
-    public void register(@RequestBody RegisterHelper registerh){
-        Professor p = new Professor.ProfessorBuilder(registerh.getPassword(), registerh.getUsername())
-                .setName(registerh.getName()).setDegree(registerh.getDegree()).setEmail(registerh.getEmail()).build();
-         userInterface.register(p);
+    public ProfessorResponse register(@RequestBody RegisterHelper registerh){
+        List<Professor> useri =userInterface.existsUser(registerh.getUsername());
+        if(useri.size() ==0) {
+            Professor p = new Professor.ProfessorBuilder(registerh.getPassword(), registerh.getUsername())
+                    .setName(registerh.getName()).setDegree(registerh.getDegree()).setEmail(registerh.getEmail()).build();
+            userInterface.register(p);
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(p).build();
+            System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+            return pr;
+        }else{
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Ky username eshte i nxene. Ju lutem zgjedhni nje tjeter!").build();
+            System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
+            return pr;
+        }
     }
 
      @GetMapping("/searchFolder")

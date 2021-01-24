@@ -163,6 +163,11 @@ private List<Document> searchDocument(SearchStrategy sch , String name){
         else
             return false;
     }
+    @Override
+    public List<Professor> existsUser(String username){
+        List <Professor> profa = professorDao.existsByUsername2(username);
+        return profa;
+    }
 
   /*  @Override
     public boolean exists(String username){
