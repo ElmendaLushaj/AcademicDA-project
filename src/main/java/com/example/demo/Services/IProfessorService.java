@@ -20,6 +20,8 @@ public interface IProfessorService {
 
     List<Document> docByFolder(Folder foldid);
     List<Comment> getAllComments();
+    List<Comment> getComByDoc(Document docId);
+    List<Approvement> getAppByDoc(Document docId);
 
 
 }

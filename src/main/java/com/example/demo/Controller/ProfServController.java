@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -175,5 +176,43 @@ public class ProfServController {
             System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
             return pr;
         }
+
     }
+    @GetMapping("/commentByDoc/{docId}")
+    public ProfessorResponse getCommOfDoc(@PathVariable int docId) {
+        Optional<Document> d = profServ.getDocById(docId);
+        Document dd =d.get();
+        List<Comment> listaC = profServ.getComByDoc(dd);
+        if (listaC.size() == 0) {
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Komente per kete dokument").build();
+            System.out.println(pr2.getErrori() + " me status " + pr2.getStatusi());
+            return pr2;
+
+        }else {
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(listaC).build();
+            System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+            return pr;
+        }
+    }
+
+    @GetMapping("/approveByDoc/{docId}")
+    public ProfessorResponse getApproveOfDoc(@PathVariable int docId){
+        Optional<Document> a = profServ.getDocById(docId);
+        Document aa = a.get();
+        List<Approvement> listaA =profServ.getAppByDoc(aa);
+
+        if (listaA.size() == 0) {
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Dokumenti ende nuk eshte aprovuar/refuzuar").build();
+            System.out.println(pr2.getErrori() + " me status " + pr2.getStatusi());
+            return pr2;
+
+        }else {
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(listaA).build();
+            System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+            return pr;
+        }
+
+    }
+
+
 }

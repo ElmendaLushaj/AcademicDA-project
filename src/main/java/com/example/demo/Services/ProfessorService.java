@@ -98,4 +98,15 @@ public class ProfessorService implements IProfessorService{
         List<Document> docFolder = docDao.docByFolder(foldid);
         return docFolder;
     }
+    @Override
+    public List<Comment> getComByDoc(Document docId){
+        List <Comment> comDoc = commDao.findCommentByDoc(docId);
+        return comDoc;
+    }
+
+    @Override
+    public List<Approvement> getAppByDoc(Document docId){
+        List<Approvement> appDoc = appDao.findApprovementByDoc(docId);
+        return appDoc;
+    }
 }
