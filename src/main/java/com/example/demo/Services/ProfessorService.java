@@ -28,6 +28,12 @@ public class ProfessorService implements IProfessorService{
 
         return this.docDao.findAll();
     }
+    @Override
+    public List<Comment> getAllComments() {
+
+        return this.commDao.findAll();
+    }
+
 
     @Override
     public void addDocument(Document d) {

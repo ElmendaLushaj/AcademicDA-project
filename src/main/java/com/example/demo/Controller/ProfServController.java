@@ -1,9 +1,6 @@
 package com.example.demo.Controller;
 
-import com.example.demo.Helpers.AddDocumentHelper;
-import com.example.demo.Helpers.FolderHelper;
-import com.example.demo.Helpers.getModelHelper;
-import com.example.demo.Helpers.getModelHelper2;
+import com.example.demo.Helpers.*;
 import com.example.demo.Model.*;
 import com.example.demo.Services.IProfessorService;
 import com.example.demo.Services.IUserInterface;
@@ -59,12 +56,28 @@ public class ProfServController {
     }
 
     @GetMapping("/getFoldByUser/{username}")
-    public ResponseEntity getFoldByUser(@PathVariable String username){
+    public ProfessorResponse getFoldByUser(@PathVariable String username){
         Optional<Professor> profOp = this.userInterface.getByUsername(username);
+        if(username == null){
+            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk keni specifikuar emrin e perdoruesit ").build();
+            System.out.println(pr3.getErrori()+" me status "+pr3.getStatusi());
+            return pr3;
+        }else{
         Professor p = profOp.get();
       //  int profId =p.getProfId();
         List<Folder> f =this.profServ.getFoldByUser(p);
-        return ResponseEntity.ok(f);
+        if(f.size() == 0){
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Folder te profesorit me username "+username).build();
+            System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
+            return pr2;
+        }else {
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(f).build();
+            System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+            return pr;
+
+        }
+        }
+
 
     }
 
@@ -125,17 +138,42 @@ public class ProfServController {
         return ResponseEntity.ok(a);
 
     }
-    //per front
+
 
 
 
     @GetMapping("/getDocByFolder/{Foldname}")
-    public ResponseEntity getDocByFold(@PathVariable String Foldname){
+    public ProfessorResponse getDocByFold(@PathVariable String Foldname){
         Folder f = userInterface.getFolderByName(Foldname);
         int id = f.getFolderID();
         Optional <Folder> f2 = profServ.getFoldById(id);
         Folder fo =f2.get();
         List<Document> doc = profServ.docByFolder(fo);
-        return ResponseEntity.ok(doc);
+        if(doc.size() == 0){
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Folderi me emrin: "+Foldname+" eshte i zbrazet").build();
+            System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
+            return pr2;
+        }else {
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(doc).build();
+            System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+            return pr;
+
+        }
+    }
+
+
+
+    @GetMapping("/getALLComm")
+    public ProfessorResponse getAllComments(){
+        List<Comment> listCom=this.profServ.getAllComments();
+        if(listCom.size() == 0){
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Komente").build();
+            System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
+            return pr2;
+        }else {
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(listCom).build();
+            System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+            return pr;
+        }
     }
 }

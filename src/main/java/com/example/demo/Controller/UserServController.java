@@ -35,15 +35,15 @@ public class UserServController {
    }*/
 
     @GetMapping("/getALLProf")
-    public ResponseEntity getAllProfessors(){
+    public ProfessorResponse getAllProfessors(){
         List<Professor> professorList=this.userInterface.getAllProfessors();
-        if(professorList ==null){
+        if(professorList.size() == 0){
             ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Profesor").build();
             System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
-            return ResponseEntity.ok(pr);
+            return pr;
         }ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(professorList).build();
         System.out.println(pr.getMesazhi()+""+pr.getStatusi());
-          return ResponseEntity.ok(pr.getData());
+          return pr;
 
     }
 

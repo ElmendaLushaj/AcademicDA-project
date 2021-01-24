@@ -19,6 +19,7 @@ public interface IProfessorService {
     void deleteFold(int foldId);
 
     List<Document> docByFolder(Folder foldid);
+    List<Comment> getAllComments();
 
 
 }
