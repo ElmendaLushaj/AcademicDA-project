@@ -28,5 +28,5 @@ public interface IUserInterface {
 
     List<Document> searchDoc(String searchType, String keyword);
 
-
+    boolean exists(String username);
 }

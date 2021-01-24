@@ -51,13 +51,17 @@ public class UserServController {
     public ResponseEntity login(@RequestBody LoginHelpers login){
         Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());
 
-        if(professor==null){
-                //|| professorDAO.existsByUsername(login.getUsername())){
+        if(professor==null||!userInterface.exists(login.getUsername())){
+
+            //return new ResponseEntity("User doesnt exist", HttpStatus.NOT_FOUND);
             return ResponseEntity.notFound().build();
         }
 
         return ResponseEntity.ok(professor);
     }
+
+
+
 
     /*
    @PostMapping("/register",value="/save")

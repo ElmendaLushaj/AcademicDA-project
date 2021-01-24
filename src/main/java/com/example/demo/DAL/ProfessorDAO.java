@@ -18,9 +18,9 @@ public interface ProfessorDAO extends JpaRepository<Professor , Integer> {
   /*  @Query("INSERT INTO Professor (Name,email,password,degree,Username)VALUES(?1,?2,?3,?4,?5,?6) ")
     Optional registerProfessor(String Name,String Email,String Password, String degree,String Username);
 */
-/*  @Query("SELECT  p from Professor p where p.username=p.username")
+  @Query("select p from Professor p where p.Username=?1")
   boolean existsByUsername(String username);
-*/
+
 }
 
 
