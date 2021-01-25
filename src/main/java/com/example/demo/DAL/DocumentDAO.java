@@ -22,11 +22,11 @@ public interface DocumentDAO extends JpaRepository<Document , Integer> {
 
 
 
-  /*@Query("SELECT d from Document order by name ASC")
+  @Query("SELECT d from Document d order by d.name ASC")
     public  List<Document>sortByName();
 
-    @Query("SELECT  d from  Document order by creationD ASC ")
+    @Query("SELECT  d from  Document d order by d.creationD ASC ")
     public List<Document>sortByCreationDate();
-*/
+
 
 }

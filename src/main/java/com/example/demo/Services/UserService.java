@@ -29,6 +29,10 @@ public class UserService implements IUserInterface {
     private NameSearch nameSearch;
     @Autowired
     private TypeSearch typeSearch;
+    @Autowired
+    private NameSort nameSort;
+    @Autowired
+    private DateSort dateSort;
 
 
     @Override
@@ -153,6 +157,28 @@ public class UserService implements IUserInterface {
 private List<Document> searchDocument(SearchStrategy sch , String name){
        List<Document> list =  sch.search(name);
        return  list;
+    }
+
+
+    @Override
+    public List<Document> sortDoc(String sortType){
+        if(sortType.equalsIgnoreCase("nameSort")){
+            List<Document> documentList=sortDocument(this.nameSort);
+            return documentList;
+        }
+        else if (sortType.equalsIgnoreCase("dateSort")){
+            List<Document>documentList=sortDocument(this.dateSort);
+            return documentList;
+        }
+        List<Document>all=documentDao.findAll();
+        return all;
+    }
+
+
+
+    private  List<Document> sortDocument(SortStrategy st){
+        List<Document>list=st.sort();
+        return list;
     }
 
     @Override

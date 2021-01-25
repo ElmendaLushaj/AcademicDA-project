@@ -125,6 +125,12 @@ public class UserServController {
      return ResponseEntity.ok(searchDoc);
     }
 
+    @GetMapping("/sortDoc/{sortType}")
+    public  ResponseEntity sortDocument(@PathVariable String sortType){
+        List<Document>sortDoc=this.userInterface.sortDoc(sortType);
+        return ResponseEntity.ok(sortDoc);
+    }
+
 
 
 }

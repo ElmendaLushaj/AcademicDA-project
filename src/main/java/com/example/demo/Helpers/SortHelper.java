@@ -4,6 +4,7 @@ import com.sun.org.apache.xpath.internal.objects.XString;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class SortHelper implements Serializable {
     private String name;
@@ -32,4 +33,5 @@ public class SortHelper implements Serializable {
     public void setCreationD(Date creationD) {
         this.creationD = creationD;
     }
+
 }
