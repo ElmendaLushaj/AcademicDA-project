@@ -2,6 +2,7 @@ package com.example.demo.Services;
 
 import com.example.demo.Model.*;
 
+import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,8 @@ public interface IProfessorService {
     List<Comment> getAllComments();
     List<Comment> getComByDoc(Document docId);
     List<Approvement> getAppByDoc(Document docId);
+    List<Document> getDocByName(String name);
+
 
 
 }

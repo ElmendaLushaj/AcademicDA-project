@@ -109,4 +109,9 @@ public class ProfessorService implements IProfessorService{
         List<Approvement> appDoc = appDao.findApprovementByDoc(docId);
         return appDoc;
     }
+    @Override
+    public List<Document> getDocByName(String name){
+        List<Document> lista = docDao.search(name);
+        return lista;
+    }
 }

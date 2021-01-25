@@ -22,26 +22,38 @@ public class ProfServController {
     private IUserInterface userInterface;
 
     @GetMapping
-    public ResponseEntity getAllDocuments(){
-        List<Document> documentList=this.profServ.getAllDocuments();
+    public ResponseEntity getAllDocuments() {
+        List<Document> documentList = this.profServ.getAllDocuments();
         return ResponseEntity.ok(documentList);
 
     }
+
     @PostMapping("/deleteDoc")
-    public void deleteDoc(@RequestBody getModelHelper gtm){
-         profServ.deleteDoc(gtm.getModelId());
+    public ProfessorResponse deleteDoc(@RequestBody getModelHelper gtm) {
+        Optional <Document> getDoc = this.profServ.getDocById(gtm.getModelId());
+        if(getDoc.isPresent()) {
+            profServ.deleteDoc(gtm.getModelId());
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(getDoc).build();
+            System.out.println(pr2.getMesazhi() + "" + pr2.getStatusi());
+            return pr2;
+
+        }else {
+            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk ekziston nje dokument me id te till! ").build();
+            System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
+            return pr3;
+        }
     }
 
     @PostMapping("/addFolder3")
-    public  ProfessorResponse addFolder2(@RequestBody FolderHelper folderh){
-        Optional<Professor> pr=this.userInterface.getProfById(folderh.getProfessorID());
+    public ProfessorResponse addFolder2(@RequestBody FolderHelper folderh) {
+        Optional<Professor> pr = this.userInterface.getProfById(folderh.getProfessorID());
         List<Folder> fol = this.userInterface.listAllFolder(folderh.getName());
-        if(pr.isPresent()){
-            if(fol.size() != 0){
+        if (pr.isPresent()) {
+            if (fol.size() != 0) {
                 ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Ekziston nje foler me emer te till, ju lutem zgjedhni nje emer tjeter! ").build();
-                System.out.println(pr3.getErrori()+" me status "+pr3.getStatusi());
+                System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
                 return pr3;
-            }else {
+            } else {
                 Professor p = pr.get();
                 Folder f = new Folder(folderh.getName(), p);
                 profServ.addFolder(f);
@@ -49,28 +61,29 @@ public class ProfServController {
                 System.out.println(pr2.getMesazhi() + "" + pr2.getStatusi());
                 return pr2;
             }
-        }else{
+        } else {
 
             ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk ekziston je profesor me id te till ").build();
-            System.out.println(pr3.getErrori()+" me status "+pr3.getStatusi());
+            System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
             return pr3;
+
 
         }
     }
 
     @PostMapping("/addDoc")
-    public void addDoc(@RequestBody AddDocumentHelper sdH){
-       Optional<Folder> fl = this.profServ.getFoldById(sdH.getFolder());
-        Folder f = fl.get();
-       //Optional<Professor> pr=this.userInterface.getProfById(sdH.getProfID());
-        // professor p = pr.get();
-       // Folder f = getFold(sdH.getFoldId());
-        Professor p = f.getProfessor();
+    public void addDoc(@RequestBody AddDocumentHelper sdH) {
+        Optional<Folder> fl = this.profServ.getFoldById(sdH.getFolder());
+                Folder f = fl.get();
+                Professor p = f.getProfessor();
+                Document d = new Document(sdH.getCreationD(), sdH.getPath(), sdH.getEditedD(), sdH.getFileSize(), sdH.getName(), sdH.getType(), p, f);
+                profServ.addDocument(d);
 
-
-        Document d = new Document(sdH.getCreationD() , sdH.getPath() , sdH.getEditedD(), sdH.getFileSize(),sdH.getName(),sdH.getType(), p , f);
-        profServ.addDocument(d);
     }
+
+
+
+
 
     @GetMapping("/getFoldByUser/{username}")
     public ProfessorResponse getFoldByUser(@PathVariable String username){
@@ -143,8 +156,20 @@ public class ProfServController {
     }
 
     @PostMapping("/deleteFold")
-    public void deleteFold(@RequestBody getModelHelper gtm){
-        profServ.deleteFold(gtm.getModelId());
+    public ProfessorResponse deleteFold(@RequestBody getModelHelper gtm){
+        Optional<Folder> getf = this.profServ.getFoldById(gtm.getModelId());
+        if(getf.isPresent()){
+            profServ.deleteFold(gtm.getModelId());
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(getf).build();
+            System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+            return pr;
+
+        }else {
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston folder me id te till").build();
+            System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
+            return pr2;
+        }
+
     }
 
     @GetMapping("/getDoc/{docId}")
