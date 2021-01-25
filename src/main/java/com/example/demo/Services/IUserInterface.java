@@ -24,7 +24,7 @@ public interface IUserInterface {
 */
     List<Document> listAll(String keyword);
 
-   /*  void sort(String sortType, SortHelper sortHelper);*/
+     List<Document>sortDoc(String sortType);
 
     List<Document> searchDoc(String searchType, String keyword);
 

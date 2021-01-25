@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface SortStrategy {
 
-/*List<Document> sort(List<Document>documents);*/
+List<Document> sort();
 }
