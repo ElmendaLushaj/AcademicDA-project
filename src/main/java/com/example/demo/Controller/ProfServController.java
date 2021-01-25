@@ -58,12 +58,18 @@ public class ProfServController {
 
     @GetMapping("/getFoldByUser/{username}")
     public ProfessorResponse getFoldByUser(@PathVariable String username){
-        Optional<Professor> profOp = this.userInterface.getByUsername(username);
+
+        List<Professor> lista = this.userInterface.existsUser(username);
         if(username == null){
             ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk keni specifikuar emrin e perdoruesit ").build();
             System.out.println(pr3.getErrori()+" me status "+pr3.getStatusi());
             return pr3;
+        }else if(lista.size() == 0){
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje profesor i regjistruar me username: "+username).build();
+            System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
+            return pr2;
         }else{
+            Optional<Professor> profOp = this.userInterface.getByUsername(username);
         Professor p = profOp.get();
       //  int profId =p.getProfId();
         List<Folder> f =this.profServ.getFoldByUser(p);
@@ -83,21 +89,40 @@ public class ProfServController {
     }
 
     @GetMapping("/numberOfDoc/{useri}")
-    public ResponseEntity totalDocuments(@PathVariable String  useri){
-        Optional<Professor> profOp = this.userInterface.getByUsername(useri);
-        Professor p =profOp.get();
-        int nrDoc =p.getDoc().size();
-        return  ResponseEntity.ok(nrDoc);
+    public ProfessorResponse totalDocuments(@PathVariable String  useri){
+        List<Professor> lista =this.userInterface.existsUser(useri);
+        if(lista.size() == 0){
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston profesor me username te till: "+useri).build();
+            System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
+            return pr2;
+        }else {
+            Optional<Professor> profOp = this.userInterface.getByUsername(useri);
+            Professor p = profOp.get();
+            int nrDoc = p.getDoc().size();
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(nrDoc).build();
+            System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+            return pr;
+        }
 
     }
 
 
     @GetMapping("/numberOfFolders/{useri}")
-    public ResponseEntity totalFolders(@PathVariable String useri){
+    public ProfessorResponse totalFolders(@PathVariable String useri){
+        List<Professor> lista = this.userInterface.existsUser(useri);
+        if(lista.size() == 0){
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston profesor me username te till: "+useri).build();
+            System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
+            return pr2;
+        }
+        else{
         Optional<Professor> profOp = this.userInterface.getByUsername(useri);
         Professor p =profOp.get();
         int nrFold =p.getFold().size();
-        return  ResponseEntity.ok(nrFold);
+        ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(nrFold).build();
+        System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+        return pr;
+        }
 
     }
 

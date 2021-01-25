@@ -25,6 +25,11 @@ public class UserService implements IUserInterface {
     private DocumentDAO documentDao;
     @Autowired
     private FolderDao folderDao;
+    @Autowired
+    private NameSearch nameSearch;
+    @Autowired
+    private TypeSearch typeSearch;
+
 
     @Override
     public List<Professor> getAllProfessors() {
@@ -125,7 +130,7 @@ public class UserService implements IUserInterface {
          }
          return d*;/
          */
-            List<Document> d =searchDocument(new NameSearch(),name);
+            List<Document> d =searchDocument(this.nameSearch,name);
             return d;
 
 
@@ -138,7 +143,7 @@ public class UserService implements IUserInterface {
                 return null;
             }
             return d;*/
-            List<Document> d =searchDocument(new TypeSearch(),name);
+            List<Document> d =searchDocument(this.typeSearch,name);
             return d;
         }
         List<Document> all = documentDao.findAll();
