@@ -33,13 +33,29 @@ public class ProfServController {
     }
 
     @PostMapping("/addFolder3")
-    public  void addFolder2(@RequestBody FolderHelper folderh){
-       Optional<Professor> pr=this.userInterface.getProfById(folderh.getProfessorID());
-        Professor p = pr.get();
+    public  ProfessorResponse addFolder2(@RequestBody FolderHelper folderh){
+        Optional<Professor> pr=this.userInterface.getProfById(folderh.getProfessorID());
+        List<Folder> fol = this.userInterface.listAllFolder(folderh.getName());
+        if(pr.isPresent()){
+            if(fol.size() != 0){
+                ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Ekziston nje foler me emer te till, ju lutem zgjedhni nje emer tjeter! ").build();
+                System.out.println(pr3.getErrori()+" me status "+pr3.getStatusi());
+                return pr3;
+            }else {
+                Professor p = pr.get();
+                Folder f = new Folder(folderh.getName(), p);
+                profServ.addFolder(f);
+                ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(f).build();
+                System.out.println(pr2.getMesazhi() + "" + pr2.getStatusi());
+                return pr2;
+            }
+        }else{
 
-        Folder f=new Folder(folderh.getName(),p);
-        profServ.addFolder(f);
+            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk ekziston je profesor me id te till ").build();
+            System.out.println(pr3.getErrori()+" me status "+pr3.getStatusi());
+            return pr3;
 
+        }
     }
 
     @PostMapping("/addDoc")
