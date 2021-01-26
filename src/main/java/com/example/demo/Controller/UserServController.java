@@ -118,9 +118,9 @@ public class UserServController {
         this.userInterface.sort(sortType,sortHelper);
     }*/
 
-    @GetMapping("/searchDoc/{searchType}")
-    public ResponseEntity searchDocument(@PathVariable String searchType, @RequestBody searchHelper sch){
-        List<Document> searchDoc =  this.userInterface.searchDoc(searchType, sch.getName()) ;
+    @GetMapping("/searchDoc/{searchType}/{name}")
+    public ResponseEntity searchDocument(@PathVariable String searchType, @PathVariable String name){
+        List<Document> searchDoc =  this.userInterface.searchDoc(searchType, name) ;
 
      return ResponseEntity.ok(searchDoc);
     }

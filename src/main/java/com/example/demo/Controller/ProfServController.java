@@ -72,13 +72,37 @@ public class ProfServController {
     }
 
     @PostMapping("/addDoc")
-    public void addDoc(@RequestBody AddDocumentHelper sdH) {
-        Optional<Folder> fl = this.profServ.getFoldById(sdH.getFolder());
-                Folder f = fl.get();
-                Professor p = f.getProfessor();
-                Document d = new Document(sdH.getCreationD(), sdH.getPath(), sdH.getEditedD(), sdH.getFileSize(), sdH.getName(), sdH.getType(), p, f);
-                profServ.addDocument(d);
+    public ProfessorResponse addDoc(@RequestBody AddDocumentHelper sdH) {
+        if(sdH.getEditedD() == null || sdH.getCreationD() == null || sdH.getFileSize() == 0 || sdH.getName() == ""
+        || sdH.getType() == "" || sdH.getPath()== "" || sdH.getFolder() == 0){
+            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Te gjitha hapsirat per input duhet plotesuar ").build();
+            System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
+            return pr3;
+        }else {
+            Optional<Folder> fl = this.profServ.getFoldById(sdH.getFolder());
+            if(fl.isPresent()) {
+                 List<Document> list = this.profServ.getDocByName(sdH.getName());
+                 if(list.size() == 0){
+                     Folder f = fl.get();
+                     Professor p = f.getProfessor();
+                     Document d = new Document(sdH.getCreationD(), sdH.getPath(), sdH.getEditedD(), sdH.getFileSize(), sdH.getName(), sdH.getType(), p, f);
+                     profServ.addDocument(d);
+                     ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(d).build();
+                     System.out.println(pr2.getMesazhi() + "" + pr2.getStatusi());
+                     return pr2;
+                 }else {
+                     ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Ekziston nje dokument me emer te till, ju lutem zgjedhni nje emer tjeter").build();
+                     System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
+                     return pr3;
+                 }
 
+            }
+            else {
+                ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk ekziston je folder me id te till").build();
+                System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
+                return pr3;
+            }
+        }
     }
 
 
@@ -89,7 +113,7 @@ public class ProfServController {
     public ProfessorResponse getFoldByUser(@PathVariable String username){
 
         List<Professor> lista = this.userInterface.existsUser(username);
-        if(username == null){
+        if(username == ""){
             ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk keni specifikuar emrin e perdoruesit ").build();
             System.out.println(pr3.getErrori()+" me status "+pr3.getStatusi());
             return pr3;
