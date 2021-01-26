@@ -24,17 +24,7 @@ public class UserServController {
     private IUserInterface userInterface;
 
 
-/* @GetMapping("/getALLProf")
-   public ResponseEntity<List<Professor>> getAllProfessors(){
-       List<Professor> professorList=this.userInterface.getAllProfessors();
-       if(professorList ==null){
-           return null;
-       }
-
-       return ResponseEntity.ok(professorList);
-
-   }*/
-
+     //shfaq te gjith perdoruesit/profesoret
     @GetMapping("/getALLProf")
     public ProfessorResponse getAllProfessors(){
         List<Professor> professorList=this.userInterface.getAllProfessors();
@@ -47,13 +37,10 @@ public class UserServController {
           return pr;
 
     }
-
+    //kyqja ne llogari e perdorusve
     @PostMapping("/login")
     public ProfessorResponse login(@RequestBody LoginHelpers login){
-
         List<Professor> lista = userInterface.existsUser(login.getUsername());
-      //  Professor professor=this.userInterface.login(login.getUsername(),login.getPassword());
-//||!userInterface.exists(login.getUsername())
         if(lista.size() == 0){
             ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston perdorues me nje username te till").build();
             System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
@@ -76,15 +63,7 @@ public class UserServController {
         }
     }
 
-
-
-
-    /*
-   @PostMapping("/register",value="/save")
-    public void register(@RequestBody RegisterHelper register ) {
-        userInterface.register(register.getName(), register.getEmail(), register.getPassword(), register.getDegree(), register.getUsername());
-
-    }*/
+    //shtimi i perdoruesve
     @PostMapping("/registre")
     public ProfessorResponse register(@RequestBody RegisterHelper registerh){
         List<Professor> useri =userInterface.existsUser(registerh.getUsername());
@@ -101,7 +80,7 @@ public class UserServController {
             return pr;
         }
     }
-
+   /*  //kerkimi i foldereve
      @GetMapping("/searchFolder")
     public ResponseEntity listAllFolder(@RequestBody searchHelper sh){
         List<Folder> folders = this.userInterface.listAllFolder(sh.getName());
@@ -111,27 +90,21 @@ public class UserServController {
     public ResponseEntity listAllDocuments(@RequestBody searchHelper sh){
         List<Document> documents = this.userInterface.listAll(sh.getName());
         return ResponseEntity.ok(documents);
-    }
-
-   /*@PostMapping("/{sortType}")
-    public void sorting(@PathVariable String sortType,  @RequestBody SortHelper sortHelper){
-        this.userInterface.sort(sortType,sortHelper);
     }*/
 
+
+    //kerkimi i dokumenteve ne baze te emrit ose tipit/llojit
     @GetMapping("/searchDoc/{searchType}/{name}")
     public ResponseEntity searchDocument(@PathVariable String searchType, @PathVariable String name){
         List<Document> searchDoc =  this.userInterface.searchDoc(searchType, name) ;
-
-     return ResponseEntity.ok(searchDoc);
+        return ResponseEntity.ok(searchDoc);
     }
 
+    //sortimi i dokumenteve ne baze te emrit ose dates se krijimit (A-Z)
     @GetMapping("/sortDoc/{sortType}")
     public  ResponseEntity sortDocument(@PathVariable String sortType){
         List<Document>sortDoc=this.userInterface.sortDoc(sortType);
         return ResponseEntity.ok(sortDoc);
     }
-
-
-
 }
 

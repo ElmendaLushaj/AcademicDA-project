@@ -13,8 +13,8 @@ public class TypeSearch implements SearchStrategy{
 
 
     public TypeSearch() {
-
     }
+
     @Override
     public List<Document> search(String keyword){
         String typeSearch="";

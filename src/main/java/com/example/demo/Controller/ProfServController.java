@@ -1,5 +1,4 @@
 package com.example.demo.Controller;
-
 import com.example.demo.Helpers.*;
 import com.example.demo.Model.*;
 import com.example.demo.Services.IProfessorService;
@@ -7,8 +6,6 @@ import com.example.demo.Services.IUserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +18,7 @@ public class ProfServController {
     @Autowired
     private IUserInterface userInterface;
 
+    //merr te gjitha dokumentet
     @GetMapping
     public ResponseEntity getAllDocuments() {
         List<Document> documentList = this.profServ.getAllDocuments();
@@ -28,6 +26,7 @@ public class ProfServController {
 
     }
 
+    //fshij dokumentin ne baze te id-se
     @PostMapping("/deleteDoc")
     public ProfessorResponse deleteDoc(@RequestBody getModelHelper gtm) {
         Optional <Document> getDoc = this.profServ.getDocById(gtm.getModelId());
@@ -44,6 +43,7 @@ public class ProfServController {
         }
     }
 
+    //shto nje folder te ri
     @PostMapping("/addFolder3")
     public ProfessorResponse addFolder2(@RequestBody FolderHelper folderh) {
         Optional<Professor> pr = this.userInterface.getProfById(folderh.getProfessorID());
@@ -71,6 +71,7 @@ public class ProfServController {
         }
     }
 
+    //shto dokument te ri
     @PostMapping("/addDoc")
     public ProfessorResponse addDoc(@RequestBody AddDocumentHelper sdH) {
         if(sdH.getEditedD() == null || sdH.getCreationD() == null || sdH.getFileSize() == 0 || sdH.getName() == ""
@@ -105,13 +106,9 @@ public class ProfServController {
         }
     }
 
-
-
-
-
+    //shfaq folderat ne baze te perdoruesit
     @GetMapping("/getFoldByUser/{username}")
     public ProfessorResponse getFoldByUser(@PathVariable String username){
-
         List<Professor> lista = this.userInterface.existsUser(username);
         if(username == ""){
             ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk keni specifikuar emrin e perdoruesit ").build();
@@ -124,7 +121,6 @@ public class ProfServController {
         }else{
             Optional<Professor> profOp = this.userInterface.getByUsername(username);
         Professor p = profOp.get();
-      //  int profId =p.getProfId();
         List<Folder> f =this.profServ.getFoldByUser(p);
         if(f.size() == 0){
             ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Folder te profesorit me username "+username).build();
@@ -135,12 +131,11 @@ public class ProfServController {
             System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
             return pr;
 
+             }
         }
-        }
-
-
     }
 
+    //shfaq numrin total te dokumenteve te nje perdoruesi
     @GetMapping("/numberOfDoc/{useri}")
     public ProfessorResponse totalDocuments(@PathVariable String  useri){
         List<Professor> lista =this.userInterface.existsUser(useri);
@@ -159,7 +154,7 @@ public class ProfServController {
 
     }
 
-
+    //shfaq numrin total te foldereve te nje perdoruesi
     @GetMapping("/numberOfFolders/{useri}")
     public ProfessorResponse totalFolders(@PathVariable String useri){
         List<Professor> lista = this.userInterface.existsUser(useri);
@@ -179,6 +174,7 @@ public class ProfServController {
 
     }
 
+    //fshij nje folder ne baze te id-se se tij
     @PostMapping("/deleteFold")
     public ProfessorResponse deleteFold(@RequestBody getModelHelper gtm){
         Optional<Folder> getf = this.profServ.getFoldById(gtm.getModelId());
@@ -187,22 +183,21 @@ public class ProfServController {
             ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(getf).build();
             System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
             return pr;
-
         }else {
             ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston folder me id te till").build();
             System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
             return pr2;
         }
-
     }
 
+    //shfaq dokumentet ne baze te id-se
     @GetMapping("/getDoc/{docId}")
     public ResponseEntity getDocument(@PathVariable int docId){
-
         Optional<Document> d =this.profServ.getDocById(docId);
         return ResponseEntity.ok(d);
-
     }
+
+    //shfaq folderet ne baze te id-se
     @GetMapping("/getFold")
     public ResponseEntity getFolder(@RequestBody getModelHelper gtm){
 
@@ -211,9 +206,7 @@ public class ProfServController {
 
     }
 
-
-
-
+    //shfaq komentet ne baze te id-se
     @GetMapping("/getComm")
     public ResponseEntity getComment(@RequestBody getModelHelper gtm){
 
@@ -222,6 +215,7 @@ public class ProfServController {
 
     }
 
+    //shfaq aprovimet ne baze te id-se
     @GetMapping("/getApprove")
     public ResponseEntity getApprovement(@RequestBody getModelHelper gtm){
 
@@ -230,9 +224,7 @@ public class ProfServController {
 
     }
 
-
-
-
+    //shfaq dokumente ne baze te foldereve ku gjenden
     @GetMapping("/getDocByFolder/{Foldname}")
     public ProfessorResponse getDocByFold(@PathVariable String Foldname){
         Folder f = userInterface.getFolderByName(Foldname);
@@ -253,7 +245,7 @@ public class ProfServController {
     }
 
 
-
+    //shfaq te gjitha komentet si nje list
     @GetMapping("/getALLComm")
     public ProfessorResponse getAllComments(){
         List<Comment> listCom=this.profServ.getAllComments();
@@ -268,6 +260,7 @@ public class ProfServController {
         }
 
     }
+    //shfaq komentet ne baze te dokumentit perkates
     @GetMapping("/commentByDoc/{docId}")
     public ProfessorResponse getCommOfDoc(@PathVariable int docId) {
         Optional<Document> d = profServ.getDocById(docId);
@@ -285,6 +278,7 @@ public class ProfServController {
         }
     }
 
+    //shfaq aprovimet ne baze te dokumentit perkates
     @GetMapping("/approveByDoc/{docId}")
     public ProfessorResponse getApproveOfDoc(@PathVariable int docId){
         Optional<Document> a = profServ.getDocById(docId);
@@ -301,8 +295,5 @@ public class ProfServController {
             System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
             return pr;
         }
-
     }
-
-
 }

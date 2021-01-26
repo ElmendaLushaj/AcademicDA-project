@@ -19,7 +19,7 @@ public class NameSearch implements SearchStrategy{
     @Override
 
     public List<Document> search(String keyword){
-       // String nameSearch="";
+       String nameSearch="";
        List<Document> list =  this.documentDAO.search(keyword);
        return list;
 

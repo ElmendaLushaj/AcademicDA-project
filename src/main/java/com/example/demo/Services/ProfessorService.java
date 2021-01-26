@@ -1,5 +1,4 @@
 package com.example.demo.Services;
-
 import com.example.demo.DAL.ApprovementDAO;
 import com.example.demo.DAL.CommentDAO;
 import com.example.demo.DAL.DocumentDAO;
@@ -7,7 +6,6 @@ import com.example.demo.DAL.FolderDao;
 import com.example.demo.Model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -22,24 +20,25 @@ public class ProfessorService implements IProfessorService{
     @Autowired
     private ApprovementDAO appDao;
 
-    private Document doc;
+
     @Override
     public List<Document> getAllDocuments() {
 
         return this.docDao.findAll();
     }
+
     @Override
     public List<Comment> getAllComments() {
 
         return this.commDao.findAll();
     }
 
-
     @Override
     public void addDocument(Document d) {
 
         docDao.save(d);
     }
+
     @Override
     public  List<Folder>getAllFolders(){
         return this.folDao.findAll();
@@ -88,6 +87,7 @@ public class ProfessorService implements IProfessorService{
     public void deleteDoc(int id){
         docDao.deleteById(id);
     }
+
     @Override
     public void deleteFold(int id){
         folDao.deleteById(id);

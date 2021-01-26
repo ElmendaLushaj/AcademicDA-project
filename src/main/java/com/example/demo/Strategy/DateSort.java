@@ -12,19 +12,18 @@ import java.util.Date;
 import java.util.List;
 @Service
 public class DateSort implements SortStrategy{
-@Autowired
 
-   private DocumentDAO documentDAO;
-  /* public DateSort(Date creationD){
-       this.creationD=creationD;
-   }*/
+    @Autowired
+    private DocumentDAO documentDAO;
 
+    public DateSort(){
 
+    }
 
     @Override
-    public List<Document> sort() {
-List<Document> list=this.documentDAO.sortByCreationDate();
-return list;
+     public List<Document> sort() {
+     List<Document> list=this.documentDAO.sortByCreationDate();
+     return list;
     }
 
 
