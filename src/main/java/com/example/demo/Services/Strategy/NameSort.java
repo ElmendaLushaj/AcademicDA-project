@@ -1,6 +1,5 @@
-package com.example.demo.Strategy;
-
-import com.example.demo.DAL.DocumentDAO;
+package com.example.demo.Services.Strategy;
+import com.example.demo.DAL.DocumentRepository;
 import com.example.demo.Model.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +9,7 @@ import java.util.List;
 public class NameSort implements SortStrategy{
 
     @Autowired
-    private DocumentDAO documentDAO;
+    private DocumentRepository documentRepo;
 
     public NameSort(){
 
@@ -18,7 +17,7 @@ public class NameSort implements SortStrategy{
 
     @Override
     public List<Document> sort() {
-        List<Document>list=this.documentDAO.sortByName();
+        List<Document>list=this.documentRepo.sortByName();
     return list;
     }
 }

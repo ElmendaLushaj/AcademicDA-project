@@ -1,12 +1,11 @@
 package com.example.demo.Services;
-
-import com.example.demo.DAL.DocumentDAO;
-import com.example.demo.DAL.FolderDao;
-import com.example.demo.DAL.ProfessorDAO;
+import com.example.demo.DAL.DocumentRepository;
+import com.example.demo.DAL.FolderRepository;
+import com.example.demo.DAL.ProfessorRepository;
 import com.example.demo.Model.Document;
 import com.example.demo.Model.Folder;
 import com.example.demo.Model.Professor;
-import com.example.demo.Strategy.*;
+import com.example.demo.Services.Strategy.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +16,11 @@ import java.util.Optional;
 public class UserService implements IUserInterface {
 
     @Autowired
-    private ProfessorDAO professorDao;
+    private ProfessorRepository professorRepo;
     @Autowired
-    private DocumentDAO documentDao;
+    private DocumentRepository documentRepo;
     @Autowired
-    private FolderDao folderDao;
+    private FolderRepository folderRepo;
     @Autowired
     private NameSearch nameSearch;
     @Autowired
@@ -34,12 +33,12 @@ public class UserService implements IUserInterface {
 
     @Override
     public List<Professor> getAllProfessors() {
-        return this.professorDao.findAll();
+        return this.professorRepo.findAll();
     }
 
     @Override
     public Professor login(String username , String pass){
-        Optional<Professor> profOptional = this.professorDao.findProfessorByUsernameAndPassword(username , pass
+        Optional<Professor> profOptional = this.professorRepo.findProfessorByUsernameAndPassword(username , pass
         );
 
         if(profOptional == null){
@@ -50,7 +49,7 @@ public class UserService implements IUserInterface {
 
     @Override
     public Optional <Professor> getByUsername(String username){
-        Optional<Professor> profUsername = this.professorDao.findProfessorByUsername(username);
+        Optional<Professor> profUsername = this.professorRepo.findProfessorByUsername(username);
         if(profUsername == null){
             return null;
         }
@@ -59,28 +58,28 @@ public class UserService implements IUserInterface {
     }
     @Override
     public void register(Professor p){
-        professorDao.save(p);
+        professorRepo.save(p);
     }
 
     @Override
     public List<Document>listAll(String keyword){
         if(keyword !=null){
-            return documentDao.search(keyword);
+            return documentRepo.search(keyword);
         }
-        return documentDao.findAll();
+        return documentRepo.findAll();
     }
 
     @Override
     public List<Folder> listAllFolder(String name){
         if(name !=null){
-            return folderDao.findFoldersByName(name);
+            return folderRepo.findFoldersByName(name);
         }
-        return folderDao.findAll();
+        return folderRepo.findAll();
     }
 
     @Override
     public Optional<Professor> getProfById(int folId){
-        Optional<Professor> p= professorDao.findById(folId);
+        Optional<Professor> p= professorRepo.findById(folId);
 
             return p;
     }
@@ -97,7 +96,7 @@ public class UserService implements IUserInterface {
             List<Document> d =searchDocument(this.typeSearch,name);
             return d;
         }
-        List<Document> all = documentDao.findAll();
+        List<Document> all = documentRepo.findAll();
         return all;
 
     }
@@ -117,7 +116,7 @@ public class UserService implements IUserInterface {
             List<Document>documentList=sortDocument(this.dateSort);
             return documentList;
         }
-        List<Document>all=documentDao.findAll();
+        List<Document>all=documentRepo.findAll();
         return all;
     }
 
@@ -130,13 +129,13 @@ public class UserService implements IUserInterface {
 
     @Override
          public Folder getFolderByName(String name){
-        Folder f =this.folderDao.findFolderByName(name);
+        Folder f =this.folderRepo.findFolderByName(name);
         return f;
     }
 
     @Override
     public List<Professor> existsUser(String username){
-        List <Professor> profa = professorDao.existsByUsername2(username);
+        List <Professor> profa = professorRepo.existsByUsername2(username);
         return profa;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.demo.Strategy;
+package com.example.demo.Services.Strategy;
 import com.example.demo.Model.Document;
 import java.util.List;
 
