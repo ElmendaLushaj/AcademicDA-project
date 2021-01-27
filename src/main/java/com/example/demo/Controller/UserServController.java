@@ -26,7 +26,7 @@ public class UserServController {
     public ProfessorResponse getAllProfessors(){
         List<Professor> professorList=this.userInterface.getAllProfessors();
         if(professorList.size() == 0){
-            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Profesor").build();
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There is not a list with Professor's").build();
             System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
             return pr;
         }ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(professorList).build();
@@ -39,7 +39,7 @@ public class UserServController {
     public ProfessorResponse login(@RequestBody LoginHelpers login){
         List<Professor> lista = userInterface.existsUser(login.getUsername());
         if(lista.size() == 0){
-            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston perdorues me nje username te till").build();
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There is no user with this username!").build();
             System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
             return pr;
 
@@ -47,7 +47,7 @@ public class UserServController {
             Optional<Professor> p2 = userInterface.getByUsername(login.getUsername());
             Professor p = p2.get();
             if(!p.getPassword().equals(login.getPassword())){
-                ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Password i gabuar").build();
+                ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Incorrect password!").build();
                 System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
                 return pr;
 
@@ -72,7 +72,7 @@ public class UserServController {
             System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
             return pr;
         }else{
-            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Ky username eshte i nxene. Ju lutem zgjedhni nje tjeter!").build();
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("This username is not available, please choose another one!!").build();
             System.out.println(pr.getErrori()+" me status "+pr.getStatusi());
             return pr;
         }

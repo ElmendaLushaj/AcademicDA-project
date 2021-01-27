@@ -6,6 +6,8 @@ import com.example.demo.Services.IUserInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,7 +39,7 @@ public class ProfServController {
             return pr2;
 
         }else {
-            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk ekziston nje dokument me id te till! ").build();
+            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("There is no document with this ID! ").build();
             System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
             return pr3;
         }
@@ -50,7 +52,7 @@ public class ProfServController {
         List<Folder> fol = this.userInterface.listAllFolder(folderh.getName());
         if (pr.isPresent()) {
             if (fol.size() != 0) {
-                ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Ekziston nje foler me emer te till, ju lutem zgjedhni nje emer tjeter! ").build();
+                ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("This folder name is not available, please choose another one! ").build();
                 System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
                 return pr3;
             } else {
@@ -63,7 +65,7 @@ public class ProfServController {
             }
         } else {
 
-            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk ekziston je profesor me id te till ").build();
+            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("There is no professor with this ID ").build();
             System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
             return pr3;
 
@@ -71,12 +73,22 @@ public class ProfServController {
         }
     }
 
+    public double getProfSpace(Professor p){
+        List<Document> lista = this.profServ.getDocByProf(p);
+        double hapsira = 0;
+        for (int i = 0 ; i < lista.size() ; i++){
+            hapsira+=lista.get(i).getFileSize();
+        }
+        return  hapsira;
+
+    }
+
     //shto dokument te ri
     @PostMapping("/addDoc")
     public ProfessorResponse addDoc(@RequestBody AddDocumentHelper sdH) {
         if(sdH.getEditedD() == null || sdH.getCreationD() == null || sdH.getFileSize() == 0 || sdH.getName() == ""
         || sdH.getType() == "" || sdH.getPath()== "" || sdH.getFolder() == 0){
-            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Te gjitha hapsirat per input duhet plotesuar ").build();
+            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("You should fill all the below inputs ").build();
             System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
             return pr3;
         }else {
@@ -86,36 +98,48 @@ public class ProfServController {
                  if(list.size() == 0){
                      Folder f = fl.get();
                      Professor p = f.getProfessor();
+                     //Prov
+                    double hapsiraa = this.getProfSpace(p);
+
+                    if(sdH.getFileSize() <= 15000-hapsiraa){
+                     //Prov
                      Document d = new Document(sdH.getCreationD(), sdH.getPath(), sdH.getEditedD(), sdH.getFileSize(), sdH.getName(), sdH.getType(), p, f);
                      profServ.addDocument(d);
                      ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(d).build();
                      System.out.println(pr2.getMesazhi() + "" + pr2.getStatusi());
-                     return pr2;
+                     return pr2;}
+                    else{
+                        ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("You don't have enough space to add this document").build();
+                        System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
+                        return pr3;
+                    }
                  }else {
-                     ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Ekziston nje dokument me emer te till, ju lutem zgjedhni nje emer tjeter").build();
+                     ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("This document name is not available, please choose another one!").build();
                      System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
                      return pr3;
                  }
 
             }
             else {
-                ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk ekziston je folder me id te till").build();
+                ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("There is no folder with this ID").build();
                 System.out.println(pr3.getErrori() + " me status " + pr3.getStatusi());
                 return pr3;
             }
         }
     }
 
+
+
     //shfaq folderat ne baze te perdoruesit
     @GetMapping("/getFoldByUser/{username}")
     public ProfessorResponse getFoldByUser(@PathVariable String username){
         List<Professor> lista = this.userInterface.existsUser(username);
         if(username == ""){
-            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("Nuk keni specifikuar emrin e perdoruesit ").build();
+            ProfessorResponse pr3 = new ProfessorResponse.ProfessorResponseBuilder(402).setErrorin("You haven't specify your username ").build();
             System.out.println(pr3.getErrori()+" me status "+pr3.getStatusi());
             return pr3;
         }else if(lista.size() == 0){
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje profesor i regjistruar me username: "+username).build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There is no professor registered with this username: "+username).build();
             System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
             return pr2;
         }else{
@@ -123,7 +147,7 @@ public class ProfServController {
         Professor p = profOp.get();
         List<Folder> f =this.profServ.getFoldByUser(p);
         if(f.size() == 0){
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Folder te profesorit me username "+username).build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There is no folder that belongs to: "+username).build();
             System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
             return pr2;
         }else {
@@ -140,7 +164,7 @@ public class ProfServController {
     public ProfessorResponse totalDocuments(@PathVariable String  useri){
         List<Professor> lista =this.userInterface.existsUser(useri);
         if(lista.size() == 0){
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston profesor me username te till: "+useri).build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There is no professor with this  username: "+useri).build();
             System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
             return pr2;
         }else {
@@ -159,7 +183,7 @@ public class ProfServController {
     public ProfessorResponse totalFolders(@PathVariable String useri){
         List<Professor> lista = this.userInterface.existsUser(useri);
         if(lista.size() == 0){
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston profesor me username te till: "+useri).build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There is no professor with this username: "+useri).build();
             System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
             return pr2;
         }
@@ -184,7 +208,7 @@ public class ProfServController {
             System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
             return pr;
         }else {
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston folder me id te till").build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There is no folder with this ID").build();
             System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
             return pr2;
         }
@@ -233,7 +257,7 @@ public class ProfServController {
         Folder fo =f2.get();
         List<Document> doc = profServ.docByFolder(fo);
         if(doc.size() == 0){
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Folderi me emrin: "+Foldname+" eshte i zbrazet").build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Folder with name: "+Foldname+" is empty").build();
             System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
             return pr2;
         }else {
@@ -250,7 +274,7 @@ public class ProfServController {
     public ProfessorResponse getAllComments(){
         List<Comment> listCom=this.profServ.getAllComments();
         if(listCom.size() == 0){
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Komente").build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There are no comments").build();
             System.out.println(pr2.getErrori()+" me status "+pr2.getStatusi());
             return pr2;
         }else {
@@ -267,7 +291,7 @@ public class ProfServController {
         Document dd =d.get();
         List<Comment> listaC = profServ.getComByDoc(dd);
         if (listaC.size() == 0) {
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje list me Komente per kete dokument").build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There are no comments for this document").build();
             System.out.println(pr2.getErrori() + " me status " + pr2.getStatusi());
             return pr2;
 
@@ -286,7 +310,7 @@ public class ProfServController {
         List<Approvement> listaA =profServ.getAppByDoc(aa);
 
         if (listaA.size() == 0) {
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Dokumenti ende nuk eshte aprovuar/refuzuar").build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("This document has not yet been approved/rejected").build();
             System.out.println(pr2.getErrori() + " me status " + pr2.getStatusi());
             return pr2;
 
@@ -313,7 +337,7 @@ public class ProfServController {
             return pr;
 
         }else {
-            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje profesor me emer te till").build();
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("There is no professor with this username").build();
             System.out.println(pr2.getErrori() + " me status " + pr2.getStatusi());
             return pr2;
         }
