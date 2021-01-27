@@ -36,4 +36,6 @@ public interface IProfessorService {
 
     List<Document> getDocByName(String name);
 
+    List<Document> getDocByProf(Professor proofId);
+
 }

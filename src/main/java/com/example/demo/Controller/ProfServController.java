@@ -296,4 +296,27 @@ public class ProfServController {
             return pr;
         }
     }
+
+    //shfaq sasin e hapsires qe i ka mbetur nje profe
+    @GetMapping("/space/{useri}")
+    public ProfessorResponse getSpaceByProf(@PathVariable String useri){
+        Optional<Professor> profa = this.userInterface.getByUsername(useri);
+        if(profa.isPresent()) {
+            Professor p = profa.get();
+            List<Document> dokumentet = this.profServ.getDocByProf(p);
+            double hapsira = 0;
+            for (int i = 0 ; i < dokumentet.size() ; i++){
+                hapsira+=dokumentet.get(i).getFileSize();
+            }
+            ProfessorResponse pr = new ProfessorResponse.ProfessorResponseBuilder<>(201).setMesazhin("List e suksesshme").setData(hapsira).build();
+            System.out.println(pr.getMesazhi() + "" + pr.getStatusi());
+            return pr;
+
+        }else {
+            ProfessorResponse pr2 = new ProfessorResponse.ProfessorResponseBuilder(401).setErrorin("Nuk ekziston nje profesor me emer te till").build();
+            System.out.println(pr2.getErrori() + " me status " + pr2.getStatusi());
+            return pr2;
+        }
+
+    }
 }

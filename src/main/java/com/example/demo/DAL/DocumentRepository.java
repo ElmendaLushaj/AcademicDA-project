@@ -1,6 +1,7 @@
 package com.example.demo.DAL;
 import com.example.demo.Model.Document;
 import com.example.demo.Model.Folder;
+import com.example.demo.Model.Professor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -23,6 +24,11 @@ public interface DocumentRepository extends JpaRepository<Document , Integer> {
 
     @Query("SELECT  d from  Document d order by d.creationD ASC ")
     public List<Document>sortByCreationDate();
+
+    //provaRe
+    @Query("SELECT  d from  Document d where d.professor= ?1 ")
+    public List<Document> getDocumentByProf(Professor p);
+
 
 
 }

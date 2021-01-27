@@ -111,4 +111,10 @@ public class ProfessorService implements IProfessorService{
         List<Document> lista = docRepo.search(name);
         return lista;
     }
+
+    @Override
+    public List<Document> getDocByProf(Professor profId){
+        List <Document> doc =this.docRepo.getDocumentByProf(profId);
+        return doc;
+    }
 }
