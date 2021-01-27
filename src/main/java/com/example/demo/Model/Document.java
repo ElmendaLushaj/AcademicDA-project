@@ -1,4 +1,5 @@
 package com.example.demo.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
@@ -57,22 +58,22 @@ public class Document {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "document")
     private Set<Comment>  com;
-
+    @JsonIgnore
     public Set<Comment> getComm() {
         return com;
     }
-
+    @JsonIgnore
     public void setComments(Set<Comment> coms) {
         this.com = coms;
     }
 
    @OneToMany(cascade = CascadeType.ALL, mappedBy = "document")
     private Set<Approvement>  app;
-
+    @JsonIgnore
     public Set<Approvement> getApp() {
         return app;
     }
-
+    @JsonIgnore
     public void setApprovements(Set<Approvement> apps) {
         this.app = apps;
     }
